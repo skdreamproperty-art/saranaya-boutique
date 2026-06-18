@@ -3981,6 +3981,123 @@
         .recent-buy-popup .rb-meta {
             color: #888;
         }
+
+        /* ===== GALLERY FILTER TABS ===== */
+        .gallery-filter-btn {
+            background: white;
+            border: 2px solid #f0d0da;
+            color: #555;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .gallery-filter-btn.active,
+        .gallery-filter-btn:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        /* ===== LIGHTBOX ===== */
+        #galleryLightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.93);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        #galleryLightbox.open {
+            display: flex;
+        }
+
+        /* ===== NEW PAGE SECTIONS ===== */
+        .new-page-section {
+            display: none;
+            min-height: 60vh;
+        }
+
+        .new-page-section.active {
+            display: block;
+        }
+
+        /* ===== MOBILE INSTAGRAM SLIDER ===== */
+        @media (max-width: 768px) {
+            .instagram-grid {
+                display: flex !important;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                gap: 10px;
+                padding-bottom: 10px;
+                scrollbar-width: none;
+            }
+
+            .instagram-grid::-webkit-scrollbar {
+                display: none;
+            }
+
+            .instagram-item {
+                min-width: 200px;
+                scroll-snap-align: start;
+                flex-shrink: 0;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
+            #galleryFilterTabs button {
+                padding: 6px 14px;
+                font-size: 0.82rem;
+            }
+        }
+
+        /* ===== GIFT CARD OPTIONS ===== */
+        .gc-opt {
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .gc-opt:hover {
+            transform: translateY(-6px);
+        }
+
+        /* ===== VOICE SEARCH PULSE ===== */
+        @keyframes sbPulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.4
+            }
+        }
+
+        .voice-active {
+            animation: sbPulse 1s infinite;
+            color: #e74c3c !important;
+        }
+
+        /* ===== COUNTDOWN ===== */
+        #sbCountdown {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 28px 20px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -4183,7 +4300,7 @@
 
     <!-- FLASH SALE BANNER -->
     <div class="flash-sale-bar" id="flashSaleBar">
-        <span>🔥 FLASH SALE — Extra 15% OFF on all Sarees!</span>
+        <span>🔥 FLASH SALE — Extra 10% OFF on all Sarees!</span>
         <div class="flash-countdown">
             <div>
                 <div class="flash-unit" id="fsH">00</div>
@@ -4360,8 +4477,7 @@
                 <div class="promo-grid">
                     <div class="promo-card anim-left delay-100">
                         <div class="promo-img-wrapper">
-                            <img src="customization.png" class="promo-img"
-                                alt="Customisation">
+                            <img src="customization.png" class="promo-img" alt="Customisation">
                         </div>
                         <div class="promo-body">
                             <div>
@@ -4373,8 +4489,7 @@
                     </div>
                     <div class="promo-card anim-scale delay-200">
                         <div class="promo-img-wrapper">
-                            <img src="newarrival.png" class="promo-img"
-                                alt="New 
+                            <img src="newarrival.png" class="promo-img" alt="New 
                                 Arrivals">
                         </div>
                         <div class="promo-body">
@@ -4420,62 +4535,52 @@
             <div class="container">
                 <h2 class="section-title animatable">Shop by Category</h2>
                 <div class="category-grid animatable delay-200" id="categoryGridContainer">
-                    <div class="cat-card" onclick="filterAndGo('Bridal')"><img
-                            src="https://picsum.photos/seed/bridal/400/500">
+                    <div class="cat-card" onclick="filterAndGo('Bridal')"><img src="bridal.png">
                         <div class="cat-overlay">
                             <h3>Bridal Sarees</h3>
                         </div>
                     </div>
-                    <div class="cat-card" onclick="filterAndGo('Traditional')"><img
-                            src="https://picsum.photos/seed/classic/400/500">
+                    <div class="cat-card" onclick="filterAndGo('Traditional')"><img src="classic saree.png">
                         <div class="cat-overlay">
                             <h3>Classic Sarees</h3>
                         </div>
                     </div>
-                    <div class="cat-card" onclick="filterAndGo('Traditional')"><img
-                            src="https://picsum.photos/seed/nithya/400/500">
+                    <div class="cat-card" onclick="filterAndGo('Traditional')"><img src="nithyakalhani.png">
                         <div class="cat-overlay">
                             <h3>Nithyakalyani</h3>
                         </div>
                     </div>
-                    <div class="cat-card" onclick="filterAndGo('Designer')"><img
-                            src="https://picsum.photos/seed/parijatham/400/500">
+                    <div class="cat-card" onclick="filterAndGo('Designer')"><img src="parijatham.png">
                         <div class="cat-overlay">
                             <h3>Parijatham</h3>
                         </div>
                     </div>
-                    <div class="cat-card" onclick="filterAndGo('Traditional')"><img
-                            src="https://picsum.photos/seed/madhubani/400/500">
+                    <div class="cat-card" onclick="filterAndGo('Traditional')"><img src="madhubani.png">
                         <div class="cat-overlay">
                             <h3>Madhubani</h3>
                         </div>
                     </div>
-                    <div class="cat-card" onclick="filterAndGo('Traditional')"><img
-                            src="https://picsum.photos/seed/tussar/400/500">
+                    <div class="cat-card" onclick="filterAndGo('Traditional')"><img src="tussarsilksaree.png">
                         <div class="cat-overlay">
                             <h3>Tussar Saree</h3>
                         </div>
                     </div>
-                    <div class="cat-card" onclick="filterAndGo('Designer')"><img
-                            src="https://picsum.photos/seed/banarasi/400/500">
+                    <div class="cat-card" onclick="filterAndGo('Designer')"><img src="banarasisilk.png">
                         <div class="cat-overlay">
                             <h3>Banarasi Silk</h3>
                         </div>
                     </div>
-                    <div class="cat-card" onclick="filterAndGo('Traditional')"><img
-                            src="https://picsum.photos/seed/kalamkari/400/500">
+                    <div class="cat-card" onclick="filterAndGo('Traditional')"><img src="kalamkarisaree.png">
                         <div class="cat-overlay">
                             <h3>Kalamkari</h3>
                         </div>
                     </div>
-                    <div class="cat-card" onclick="filterAndGo('Party')"><img
-                            src="https://picsum.photos/seed/printed/400/500">
+                    <div class="cat-card" onclick="filterAndGo('Party')"><img src="printedgeorgettesaree.png">
                         <div class="cat-overlay">
                             <h3>Printed Sarees</h3>
                         </div>
                     </div>
-                    <div class="cat-card" onclick="filterAndGo('Designer')"><img
-                            src="https://picsum.photos/seed/handpainted/400/500">
+                    <div class="cat-card" onclick="filterAndGo('Designer')"><img src="printedlawnsalwar.png">
                         <div class="cat-overlay">
                             <h3>Hand Painted</h3>
                         </div>
@@ -4520,6 +4625,35 @@
             </div>
         </section>
 
+
+        <!-- SALE COUNTDOWN -->
+        <div id="sbCountdown">
+            <h3 style="font-size:1.2rem;margin-bottom:5px;font-family:var(--heading-font);">🔥 Summer Sale Ends In</h3>
+            <p style="opacity:0.85;font-size:0.87rem;margin-bottom:16px;">Flat 30% OFF on selected items!</p>
+            <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+                <div style="background:rgba(255,255,255,0.15);padding:13px 17px;border-radius:12px;min-width:62px;">
+                    <div id="ctDays" style="font-size:1.8rem;font-weight:800;line-height:1;">00</div>
+                    <div style="font-size:0.68rem;opacity:0.8;margin-top:3px;">DAYS</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.15);padding:13px 17px;border-radius:12px;min-width:62px;">
+                    <div id="ctHours" style="font-size:1.8rem;font-weight:800;line-height:1;">00</div>
+                    <div style="font-size:0.68rem;opacity:0.8;margin-top:3px;">HOURS</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.15);padding:13px 17px;border-radius:12px;min-width:62px;">
+                    <div id="ctMins" style="font-size:1.8rem;font-weight:800;line-height:1;">00</div>
+                    <div style="font-size:0.68rem;opacity:0.8;margin-top:3px;">MINS</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.15);padding:13px 17px;border-radius:12px;min-width:62px;">
+                    <div id="ctSecs" style="font-size:1.8rem;font-weight:800;line-height:1;">00</div>
+                    <div style="font-size:0.68rem;opacity:0.8;margin-top:3px;">SECS</div>
+                </div>
+            </div>
+            <button onclick="route('shop')"
+                style="margin-top:16px;background:white;color:var(--primary-color);border:none;padding:10px 26px;border-radius:30px;font-weight:700;cursor:pointer;font-size:0.93rem;">Shop
+                Sale Now <i class="fas fa-arrow-right"></i></button>
+        </div>
+
+
         <!-- CLEARANCE SALE -->
         <section class="clearance-section">
             <div class="container">
@@ -4551,8 +4685,7 @@
         <!-- INSTAGRAM FEED -->
         <section class="section-padding" style="background:white;">
             <div class="container">
-                <h2 class="section-title animatable">Follow us on Instagram <span
-                        style="color:var(--accent-color);font-size:0.7em;">@saranyaboutique</span></h2>
+                <h2 class="section-title animatable">Follow us on Instagram </h2>
                 <div class="instagram-grid" id="instagramGrid"></div>
             </div>
         </section>
@@ -4564,6 +4697,8 @@
                 <div style="max-width:800px;margin:0 auto;" id="faqContainer"></div>
             </div>
         </section>
+
+
 
         <!-- NEWSLETTER -->
         <section class="newsletter-section">
@@ -4930,8 +5065,7 @@
                                 class="form-input" placeholder="Enter password" required></div>
                         <button type="submit" class="btn" style="width:100%;">Login</button>
                     </form>
-                    <button class="google-btn" onclick="simulateGoogleLogin()"><i class="fab fa-google"></i> Continue
-                        with Google</button>
+
                 </div>
                 <div id="formRegister" class="hidden">
                     <form onsubmit="handleRegister(event)">
@@ -4947,8 +5081,7 @@
                                 class="form-input" placeholder="Create password" required></div>
                         <button type="submit" class="btn" style="width:100%;">Create Account</button>
                     </form>
-                    <button class="google-btn" onclick="simulateGoogleLogin()"><i class="fab fa-google"></i> Sign Up
-                        with Google</button>
+
                 </div>
             </div>
         </div>
@@ -5813,7 +5946,7 @@
 
     <script>
         // ===================== DATA =====================
-        const _authKey = 'b3duZXJAc2FyYW55YS5jb206U2FyYW55YUAxMjM=';
+        const _authKey = 'YWRtaW46U0tAMjAyNkFkbWlu';
         function decodeAuth(k) { return atob(k); }
 
         let currentUser = null;
@@ -5854,36 +5987,36 @@
         ];
 
         let products = [
-            { id: 1, name: 'Kanjivaram Silk Saree', category: 'Traditional', price: 3500, mrp: 4500, stock: 8, rating: 4.8, reviews: 24, img: 'https://picsum.photos/seed/silk1/400/500', desc: 'Beautiful Kanjivaram silk with golden border, perfect for weddings and festivals.' },
-            { id: 2, name: 'Bridal Lehenga Set', category: 'Bridal', price: 8500, mrp: 12000, stock: 5, rating: 4.9, reviews: 18, img: 'https://picsum.photos/seed/bridal1/400/500', desc: 'Exquisite bridal lehenga with heavy embroidery and stonework for your special day.' },
-            { id: 3, name: 'Cotton Printed Saree', category: 'Traditional', price: 1200, mrp: 1800, stock: 20, rating: 4.2, reviews: 45, img: 'https://picsum.photos/seed/cotton1/400/500', desc: 'Light and comfortable cotton saree with modern prints for everyday wear.' },
-            { id: 4, name: 'Party Wear Gown', category: 'Party', price: 2800, mrp: 3500, stock: 12, rating: 4.5, reviews: 32, img: 'https://picsum.photos/seed/gown1/400/500', desc: 'Elegant party wear gown in rich fabric with designer detailing.' },
-            { id: 5, name: 'Designer Anarkali Suit', category: 'Designer', price: 4200, mrp: 5500, stock: 7, rating: 4.6, reviews: 15, img: 'https://picsum.photos/seed/anarkali1/400/500', desc: 'Stunning designer Anarkali with intricate embroidery work.' },
-            { id: 6, name: 'Banarasi Silk Saree', category: 'Traditional', price: 5500, mrp: 7000, stock: 6, rating: 4.7, reviews: 28, img: 'https://picsum.photos/seed/banarasi1/400/500', desc: 'Pure Banarasi silk with traditional zari work, a timeless classic.' },
-            { id: 7, name: 'Tussar Silk Saree', category: 'Traditional', price: 2200, mrp: 3000, stock: 3, rating: 4.3, reviews: 19, img: 'https://picsum.photos/seed/tussar1/400/500', desc: 'Natural Tussar silk with elegant texture and tribal prints.' },
-            { id: 8, name: 'Western Jumpsuit', category: 'Western', price: 1800, mrp: 2500, stock: 15, rating: 4.1, reviews: 22, img: 'https://picsum.photos/seed/western1/400/500', desc: 'Trendy western jumpsuit for modern fashion-forward women.' },
-            { id: 9, name: 'Chiffon Party Saree', category: 'Party', price: 3200, mrp: 4200, stock: 2, rating: 4.4, reviews: 11, img: 'https://picsum.photos/seed/chiffon1/400/500', desc: 'Glamorous chiffon saree with sequin border for evening events.' },
-            { id: 10, name: 'Bridal Silk Pattu', category: 'Bridal', price: 12000, mrp: 16000, stock: 4, rating: 5.0, reviews: 8, img: 'https://picsum.photos/seed/pattu1/400/500', desc: 'Premium bridal silk pattu saree with gold zari border for the perfect wedding look.' },
-            { id: 11, name: 'Kalamkari Cotton Saree', category: 'Traditional', price: 1600, mrp: 2200, stock: 18, rating: 4.0, reviews: 33, img: 'https://picsum.photos/seed/kalamkari1/400/500', desc: 'Hand-painted Kalamkari cotton saree with traditional motifs.' },
-            { id: 12, name: 'Designer Lehenga Choli', category: 'Designer', price: 6500, mrp: 9000, stock: 0, rating: 4.7, reviews: 14, img: 'https://picsum.photos/seed/lehenga1/400/500', soldOut: true, desc: 'Stunning designer lehenga choli with mirror work and thread embroidery.' },
+            { id: 1, name: 'Kanjivaram Silk Saree', category: 'Traditional', price: 3500, mrp: 4500, stock: 8, rating: 4.8, reviews: 24, img: 'KanjivaramSilkSaree.jpeg', desc: 'Beautiful Kanjivaram silk with golden border, perfect for weddings and festivals.' },
+            { id: 2, name: 'Bridal Lehenga Set', category: 'Bridal', price: 8500, mrp: 12000, stock: 5, rating: 4.9, reviews: 18, img: 'bridal.png', desc: 'Exquisite bridal lehenga with heavy embroidery and stonework for your special day.' },
+            { id: 3, name: 'Cotton Printed Saree', category: 'Traditional', price: 1200, mrp: 1800, stock: 20, rating: 4.2, reviews: 45, img: 'cottonprintedsaree.png', desc: 'Light and comfortable cotton saree with modern prints for everyday wear.' },
+            { id: 4, name: 'Party Wear Gown', category: 'Party', price: 2800, mrp: 3500, stock: 12, rating: 4.5, reviews: 32, img: 'partyweargown.png', desc: 'Elegant party wear gown in rich fabric with designer detailing.' },
+            { id: 5, name: 'Designer Anarkali Suit', category: 'Designer', price: 4200, mrp: 5500, stock: 7, rating: 4.6, reviews: 15, img: 'designeranarkalisuit.png', desc: 'Stunning designer Anarkali with intricate embroidery work.' },
+            { id: 6, name: 'Banarasi Silk Saree', category: 'Traditional', price: 5500, mrp: 7000, stock: 6, rating: 4.7, reviews: 28, img: 'banarasisilk.png', desc: 'Pure Banarasi silk with traditional zari work, a timeless classic.' },
+            { id: 7, name: 'Tussar Silk Saree', category: 'Traditional', price: 2200, mrp: 3000, stock: 3, rating: 4.3, reviews: 19, img: 'tussarsilksaree.png', desc: 'Natural Tussar silk with elegant texture and tribal prints.' },
+            { id: 8, name: 'Western Jumpsuit', category: 'Western', price: 1800, mrp: 2500, stock: 15, rating: 4.1, reviews: 22, img: 'westernjumpsuit.png', desc: 'Trendy western jumpsuit for modern fashion-forward women.' },
+            { id: 9, name: 'Chiffon Party Saree', category: 'Party', price: 3200, mrp: 4200, stock: 2, rating: 4.4, reviews: 11, img: 'chiffonsaree.png', desc: 'Glamorous chiffon saree with sequin border for evening events.' },
+            { id: 10, name: 'Bridal Silk Pattu', category: 'Bridal', price: 12000, mrp: 16000, stock: 4, rating: 5.0, reviews: 8, img: 'bridaalsilkpattu.png', desc: 'Premium bridal silk pattu saree with gold zari border for the perfect wedding look.' },
+            { id: 11, name: 'Kalamkari Cotton Saree', category: 'Traditional', price: 1600, mrp: 2200, stock: 18, rating: 4.0, reviews: 33, img: 'kalamkarisaree.png', desc: 'Hand-painted Kalamkari cotton saree with traditional motifs.' },
+            { id: 12, name: 'Designer Lehenga Choli', category: 'Designer', price: 6500, mrp: 9000, stock: 0, rating: 4.7, reviews: 14, img: 'designerlehngajholi.png', soldOut: true, desc: 'Stunning designer lehenga choli with mirror work and thread embroidery.' },
         ];
 
         let newArrivals = [
-            { id: 101, name: 'Mysore Silk Classic', category: 'Traditional', price: 4200, mrp: 5500, stock: 10, rating: 4.6, reviews: 5, img: 'https://picsum.photos/seed/mysore1/400/500', desc: 'Classic Mysore silk saree with golden border.' },
-            { id: 102, name: 'Bridal Velvet Lehenga', category: 'Bridal', price: 15000, mrp: 20000, stock: 3, rating: 4.9, reviews: 3, img: 'https://picsum.photos/seed/velvet1/400/500', desc: 'Royal velvet bridal lehenga with heavy embroidery.' },
-            { id: 103, name: 'Organza Party Wear', category: 'Party', price: 3800, mrp: 4800, stock: 8, rating: 4.4, reviews: 7, img: 'https://picsum.photos/seed/organza1/400/500', desc: 'Elegant organza saree with sequin detailing.' },
+            { id: 101, name: 'Mysore Silk Classic', category: 'Traditional', price: 4200, mrp: 5500, stock: 10, rating: 4.6, reviews: 5, img: 'mysooresilksaree.png', desc: 'Classic Mysore silk saree with golden border.' },
+            { id: 102, name: 'Bridal Velvet Lehenga', category: 'Bridal', price: 15000, mrp: 20000, stock: 3, rating: 4.9, reviews: 3, img: 'bridalvelvetlehnga.png', desc: 'Royal velvet bridal lehenga with heavy embroidery.' },
+            { id: 103, name: 'Organza Party Wear', category: 'Party', price: 3800, mrp: 4800, stock: 8, rating: 4.4, reviews: 7, img: 'organazapartywear.png', desc: 'Elegant organza saree with sequin detailing.' },
         ];
 
         let unstitchedSalwars = [
-            { id: 201, name: 'Pure Cotton Salwar Set', category: 'Unstitched', price: 850, mrp: 1200, stock: 25, rating: 4.2, reviews: 18, img: 'https://picsum.photos/seed/salwar1/400/500', desc: 'Pure cotton unstitched salwar set with dupatta.' },
-            { id: 202, name: 'Silk Blend Salwar', category: 'Unstitched', price: 1400, mrp: 1800, stock: 0, rating: 4.5, reviews: 12, soldOut: true, img: 'https://picsum.photos/seed/salwar2/400/500', desc: 'Premium silk blend salwar material.' },
-            { id: 203, name: 'Printed Lawn Salwar', category: 'Unstitched', price: 650, mrp: 900, stock: 30, rating: 4.0, reviews: 25, img: 'https://picsum.photos/seed/salwar3/400/500', desc: 'Vibrant printed lawn fabric for stylish salwar.' },
+            { id: 201, name: 'Pure Cotton Salwar Set', category: 'Unstitched', price: 850, mrp: 1200, stock: 25, rating: 4.2, reviews: 18, img: 'purecottonsalwarset.png', desc: 'Pure cotton unstitched salwar set with dupatta.' },
+            { id: 202, name: 'Silk Blend Salwar', category: 'Unstitched', price: 1400, mrp: 1800, stock: 0, rating: 4.5, reviews: 12, soldOut: true, img: 'silkblendsalwar.png', desc: 'Premium silk blend salwar material.' },
+            { id: 203, name: 'Printed Lawn Salwar', category: 'Unstitched', price: 650, mrp: 900, stock: 30, rating: 4.0, reviews: 25, img: 'printedlawnsalwar.png', desc: 'Vibrant printed lawn fabric for stylish salwar.' },
         ];
 
         let clearanceProducts = [
-            { id: 301, name: 'Embroidered Kurti Set', category: 'Western', price: 799, mrp: 1500, stock: 5, rating: 3.8, reviews: 9, img: 'https://picsum.photos/seed/clear1/400/500', desc: 'Stylish embroidered kurti set at clearance price.' },
-            { id: 302, name: 'Printed Georgette Saree', category: 'Traditional', price: 1299, mrp: 2500, stock: 3, rating: 4.1, reviews: 6, img: 'https://picsum.photos/seed/clear2/400/500', desc: 'Beautiful georgette saree with floral prints.' },
-            { id: 303, name: 'Cotton Casual Kurti', category: 'Western', price: 449, mrp: 899, stock: 8, rating: 3.9, reviews: 15, img: 'https://picsum.photos/seed/clear3/400/500', desc: 'Comfortable cotton kurti for daily wear.' },
+            { id: 301, name: 'Embroidered Kurti Set', category: 'Western', price: 799, mrp: 1500, stock: 5, rating: 3.8, reviews: 9, img: 'embroidedkurtiset.png', desc: 'Stylish embroidered kurti set at clearance price.' },
+            { id: 302, name: 'Printed Georgette Saree', category: 'Traditional', price: 1299, mrp: 2500, stock: 3, rating: 4.1, reviews: 6, img: 'printedgeorgettesaree.png', desc: 'Beautiful georgette saree with floral prints.' },
+            { id: 303, name: 'Cotton Casual Kurti', category: 'Western', price: 449, mrp: 899, stock: 8, rating: 3.9, reviews: 15, img: 'cottoncasualkurti.png', desc: 'Comfortable cotton kurti for daily wear.' },
         ];
 
         const testimonials = [
@@ -5947,6 +6080,13 @@
             document.getElementById('admin-overlay').classList.remove('active');
             document.getElementById('site-header').style.display = 'block';
             document.getElementById('site-footer').style.display = 'block';
+            // === NEW PAGES (SEO + features) ===
+            const newPageIds = ['about', 'contact', 'blog', 'privacy', 'terms', 'shipping', 'return', 'giftcards', 'refer'];
+            if (newPageIds.indexOf(pageId) !== -1) {
+                document.querySelectorAll('.page-section').forEach(function (s) { s.classList.remove('active'); });
+                const newEl = document.getElementById('np-' + pageId);
+                if (newEl) { newEl.classList.add('active'); window.scrollTo(0, 0); document.getElementById('navLinks').classList.remove('active'); return; }
+            }
             if (pageId === 'checkout') { if (!currentUser || currentUser.role !== 'customer') { showToast("Please login to checkout.", "error"); route('login'); return; } }
             if (pageId === 'profile') { if (!currentUser || currentUser.role !== 'customer') { route('login'); return; } }
             sections.forEach(sec => sec.classList.remove('active'));
@@ -5962,6 +6102,7 @@
             if (pageId === 'unstiched') renderUnstitchedPage();
             if (pageId === 'booking') loadBookingPage();
             if (pageId === 'home') renderRecentlyViewed();
+            if (pageId === 'gallery') setTimeout(function () { renderGalleryDynamic('All'); }, 100);
         }
 
         function filterAndGo(cat) {
@@ -6028,7 +6169,7 @@
             const newBadge = p.id >= 100 && p.id < 200 ? `<div class="badge-new">NEW</div>` : '';
             return `<div class="product-card animatable ${delayClass}">
         <div style="position:relative;">
-            <img src="${p.img}" class="product-img" onclick="viewProduct(${p.id})">
+            <img src="${p.img}" class="product-img" loading="lazy" onclick="viewProduct(${p.id})">
             ${stockBadge}${newBadge}
             <div class="product-actions-overlay">
                 <button class="product-action-btn ${isWishlisted ? 'wishlisted' : ''}" onclick="toggleWishlist(${p.id})" title="Wishlist"><i class="${isWishlisted ? 'fas' : 'far'} fa-heart"></i></button>
@@ -6052,7 +6193,7 @@
         function renderUnstitchedSalwar() {
             document.getElementById('unstitchedGrid').innerHTML = unstitchedSalwars.map((p, i) => {
                 const soldBadge = p.soldOut ? `<div class="badge-sold-out">Sold Out</div>` : '';
-                return `<div class="product-card animatable ${getDelayClass(i)}"><div style="position:relative;"><img src="${p.img}" class="product-img" onclick="viewProduct(${p.id})">${soldBadge}</div><div class="product-info"><span class="product-cat">Unstitched</span><h3 class="product-title" onclick="viewProduct(${p.id})">${p.name}</h3><div class="product-price">₹${p.price.toLocaleString()}.00</div><p style="font-size:0.8rem;color:#888;">Top and Dupatta</p>${!p.soldOut ? `<button class="add-btn" onclick="addToCart(${p.id})">Add to Cart</button>` : ''}</div></div>`;
+                return `<div class="product-card animatable ${getDelayClass(i)}"><div style="position:relative;"><img src="${p.img}" class="product-img" loading="lazy" onclick="viewProduct(${p.id})">${soldBadge}</div><div class="product-info"><span class="product-cat">Unstitched</span><h3 class="product-title" onclick="viewProduct(${p.id})">${p.name}</h3><div class="product-price">₹${p.price.toLocaleString()}.00</div><p style="font-size:0.8rem;color:#888;">Top and Dupatta</p>${!p.soldOut ? `<button class="add-btn" onclick="addToCart(${p.id})">Add to Cart</button>` : ''}</div></div>`;
             }).join('');
         }
         function renderFeatured() {
@@ -6072,9 +6213,39 @@
             </div></div>`;
             }).join('');
         }
-        function renderGallery() {
-            const seeds = ['fashion1', 'fashion2', 'fashion3', 'fashion4', 'fashion5', 'fashion6', 'fashion7', 'fashion8'];
-            document.getElementById('galleryGrid').innerHTML = seeds.map((s, i) => `<div class="gallery-item animatable ${getDelayClass(i)}"><img src="https://picsum.photos/seed/${s}/400/500" alt="Gallery"><div class="gallery-overlay"></div></div>`).join('');
+        function renderGallery() { renderGalleryDynamic(window._galleryFilter || 'All'); }
+        function renderGalleryDynamic(cat) {
+            window._galleryFilter = cat;
+            // Inject filter tabs once
+            if (!document.getElementById('galleryFilterTabs')) {
+                var gSection = document.getElementById('gallery');
+                var tabDiv = document.createElement('div');
+                tabDiv.id = 'galleryFilterTabs';
+                tabDiv.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:10px 0 20px;padding:0 20px;';
+                ['All', 'Saree', 'Kurti', 'Lehenga', 'Bridal', 'New Arrival'].forEach(function (c) {
+                    var btn = document.createElement('button');
+                    btn.textContent = c;
+                    btn.className = 'gallery-filter-btn' + (c === 'All' ? ' active' : '');
+                    btn.onclick = function () { filterGalleryView(c, btn); };
+                    tabDiv.appendChild(btn);
+                });
+                var grid = document.getElementById('galleryGrid');
+                if (grid && grid.parentNode) grid.parentNode.insertBefore(tabDiv, grid);
+            }
+            // Update active tab
+            document.querySelectorAll('.gallery-filter-btn').forEach(function (b) { b.classList.toggle('active', b.textContent === cat); });
+            var filtered = (cat === 'All') ? galleryPhotos : galleryPhotos.filter(function (p) { return p.category === cat; });
+            document.getElementById('galleryGrid').innerHTML = filtered.map(function (p, i) {
+                return '<div class="gallery-item animatable ' + getDelayClass(i) + '" onclick="openGalleryLightbox(' + p.id + ')" style="cursor:zoom-in;">' +
+                    '<img src="' + p.img + '" loading="lazy" alt="' + p.caption + '">' +
+                    '<div class="gallery-overlay" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:15px;background:linear-gradient(transparent,rgba(0,0,0,0.6));">' +
+                    '<div style="color:white;font-weight:600;font-size:0.9rem;">' + p.caption + '</div>' +
+                    '<div style="color:rgba(255,255,255,0.75);font-size:0.78rem;">' + p.category + '</div></div></div>';
+            }).join('');
+            setTimeout(setupAnimations, 100);
+        }
+        function filterGalleryView(cat, btn) {
+            renderGalleryDynamic(cat);
         }
         function renderUnstitchedPage() {
             document.getElementById('unstitchedPageGrid').innerHTML = unstitchedSalwars.map((p, i) => createProductCard(p, getDelayClass(i))).join('');
@@ -6093,10 +6264,12 @@
     `).join('');
         }
         function renderInstagramFeed() {
-            document.getElementById('instagramGrid').innerHTML = instagramSeeds.map(s => `
-        <div class="instagram-item"><img src="https://picsum.photos/seed/${s}/300/300" alt="Instagram">
-        <div class="insta-overlay"><i class="fab fa-instagram"></i></div></div>
-    `).join('');
+            document.getElementById('instagramGrid').innerHTML = instagramPosts.map(function (p) {
+                return '<div class="instagram-item" onclick="window.open(\'' + p.link + '\',\'_blank\')" style="cursor:pointer;">' +
+                    '<img src="' + p.img + '" loading="lazy" alt="Instagram" style="width:100%;height:100%;object-fit:cover;">' +
+                    '<div class="insta-overlay"><i class="fab fa-instagram" style="font-size:1.3rem;"></i>' +
+                    '<div style="font-size:0.75rem;margin-top:4px;padding:0 5px;text-align:center;opacity:0.9;line-height:1.3;">' + p.caption.slice(0, 45) + '...</div></div></div>';
+            }).join('');
         }
         function renderFAQ() {
             document.getElementById('faqContainer').innerHTML = faqData.map((f, i) => `
@@ -6378,7 +6551,7 @@
             grid.innerHTML = wishlist.map(p => `
         <div class="product-card">
             <div style="position:relative;">
-                <img src="${p.img}" class="product-img" onclick="viewProduct(${p.id})">
+                <img src="${p.img}" class="product-img" loading="lazy" onclick="viewProduct(${p.id})">
                 <button class="wishlist-remove" onclick="toggleWishlist(${p.id})"><i class="fas fa-times"></i></button>
             </div>
             <div class="product-info">
@@ -6508,6 +6681,13 @@
         function printInvoice() { window.print(); }
         function downloadInvoice() { showToast("Invoice download started!", "success"); }
 
+
+        // === SESSION RESTORE ===
+        (function () {
+            try { var s = localStorage.getItem('sbSession'); if (s) currentUser = JSON.parse(s); } catch (_) { }
+            var v = parseInt(localStorage.getItem('sbVisitors') || '0') + 1;
+            localStorage.setItem('sbVisitors', v); window._sbVisitors = v;
+        })();
         // ===================== AUTH =====================
         function switchAuth(type) {
             const isLogin = type === 'login';
@@ -6518,13 +6698,31 @@
         }
         function handleLogin(e) {
             e.preventDefault();
-            const user = document.getElementById('loginUser').value;
+            const user = document.getElementById('loginUser').value.trim();
             const pass = document.getElementById('loginPass').value;
+            const lockUntil = parseInt(localStorage.getItem('sbLockUntil') || '0');
+            if (Date.now() < lockUntil) {
+                showToast('Too many attempts. Try again in ' + Math.ceil((lockUntil - Date.now()) / 60000) + ' min.', 'error'); return;
+            }
             const validCreds = decodeAuth(_authKey);
             const [validUser, validPass] = validCreds.split(':');
-            if (user === validUser && pass === validPass) { currentUser = { name: 'Admin User', role: 'admin', email: validUser }; showToast("Welcome Admin!"); openAdminDashboard(); return; }
-            if (user && pass) { currentUser = { name: user, email: user.includes('@') ? user : user + '@gmail.com', role: 'customer', phone: '9876543210' }; showToast(`Welcome Back, ${user}!`, "success"); route('home'); }
-            else showToast("Please enter valid credentials", "error");
+            if (user === validUser && pass === validPass) {
+                localStorage.removeItem('sbFailCount'); localStorage.removeItem('sbLockUntil');
+                currentUser = { name: 'Saranya Admin', role: 'admin', email: 'admin@saranya.com' };
+                localStorage.setItem('sbSession', JSON.stringify(currentUser));
+                showToast('Welcome Admin! 👑', 'success'); openAdminDashboard(); return;
+            }
+            if (user === validUser) {
+                let f = parseInt(localStorage.getItem('sbFailCount') || '0') + 1;
+                localStorage.setItem('sbFailCount', f);
+                if (f >= 3) { localStorage.setItem('sbLockUntil', Date.now() + 15 * 60000); localStorage.removeItem('sbFailCount'); showToast('Account locked for 15 minutes.', 'error'); return; }
+                showToast('Wrong password — ' + (3 - f) + ' attempt(s) left.', 'error'); return;
+            }
+            if (user && pass) {
+                currentUser = { name: user, email: user.includes('@') ? user : user + '@gmail.com', role: 'customer', phone: '9876543210' };
+                localStorage.setItem('sbSession', JSON.stringify(currentUser));
+                showToast('Welcome Back, ' + user + '! 🎉', 'success'); route('home');
+            } else showToast('Please enter valid credentials', 'error');
         }
         function handleRegister(e) {
             e.preventDefault();
@@ -6534,19 +6732,13 @@
             currentUser = { name, email, phone, role: 'customer' };
             customers.push({ name, email, phone, orders: 0, totalSpent: 0 });
             showToast("Account Created! Welcome to Saranya Boutique 🎉", "success");
+            localStorage.setItem('sbSession', JSON.stringify(currentUser));
             route('home');
         }
-        function simulateGoogleLogin() { document.getElementById('googleModal').classList.add('active'); }
-        function closeGoogleModal() { document.getElementById('googleModal').classList.remove('active'); document.getElementById('gName').value = ''; document.getElementById('gEmail').value = ''; }
-        function confirmGoogleLogin() {
-            const name = document.getElementById('gName').value;
-            const email = document.getElementById('gEmail').value;
-            if (!name || !email) { showToast("Please fill in both fields.", "error"); return; }
-            if (email === 'owner@saranya.com') { currentUser = { name, email, role: 'admin', phone: '9876543210' }; showToast("Admin Access Granted!"); closeGoogleModal(); openAdminDashboard(); return; }
-            currentUser = { name, email, role: 'customer', phone: '9876543210' };
-            closeGoogleModal(); showToast(`Welcome, ${name}! 🎉`, "success"); route('home');
-        }
-        function logout() { currentUser = null; cart = []; wishlist = []; appliedCoupon = null; updateCartCount(); updateWishlistCount(); showToast("Logged Out"); route('home'); }
+        function simulateGoogleLogin() { showToast('Please use Admin ID + Password to login.', 'info'); }
+        function closeGoogleModal() { }
+        function confirmGoogleLogin() { closeGoogleModal(); }
+        function logout() { currentUser = null; cart = []; wishlist = []; appliedCoupon = null; localStorage.removeItem('sbSession'); updateCartCount(); updateWishlistCount(); showToast('Logged Out 👋'); route('home'); }
         function handleUserClick() { if (currentUser) { if (currentUser.role === 'admin') openAdminDashboard(); else route('profile'); } else route('login'); }
 
         // ===================== CUSTOMER PROFILE =====================
@@ -6585,7 +6777,7 @@
         function renderDashWishlist() {
             const grid = document.getElementById('dashWishlistGrid');
             grid.innerHTML = wishlist.length ? wishlist.map(p => `
-        <div class="product-card"><img src="${p.img}" class="product-img" onclick="viewProduct(${p.id})" style="height:200px;">
+        <div class="product-card"><img src="${p.img}" class="product-img" loading="lazy" onclick="viewProduct(${p.id})" style="height:200px;">
         <div class="product-info"><h3 class="product-title" style="font-size:0.9rem;">${p.name}</h3>
         <div class="product-price">₹${p.price.toLocaleString()}</div>
         <div style="display:flex;gap:8px;margin-top:10px;"><button class="add-btn" style="flex:1;" onclick="addToCart(${p.id})">Add to Cart</button>
@@ -6613,7 +6805,7 @@
             document.getElementById('trackOrderDate').innerText = 'Ordered on ' + order.date;
             document.getElementById('trackStatusBadge').className = `status-badge status-${order.status.toLowerCase()}`;
             document.getElementById('trackStatusBadge').innerText = order.status;
-            const statusMap = { Pending: 0, Packed: 1, Shipped: 2, 'Out for Delivery': 3, Delivered: 4 };
+            const statusMap = { Pending: 0, Confirmed: 0, Packed: 1, Shipped: 2, 'Out for Delivery': 3, Delivered: 4 };
             const step = statusMap[order.status] || 0;
             document.querySelectorAll('.tracking-icon').forEach((ic, i) => {
                 ic.classList.remove('done', 'active');
@@ -6717,14 +6909,14 @@
 
         function adminRoute(viewId) {
             document.querySelectorAll('.admin-menu-pro li').forEach(li => li.classList.remove('active'));
-            const menuMap = { dashboard: 'admDash', orders: 'admOrders', products: 'admProducts', inventory: 'admInventory', bookings: 'admBookings', customers: 'admCustomers', analytics: 'admAnalytics', payments: 'admPayments', offers: 'admOffers' };
+            const menuMap = { dashboard: 'admDash', orders: 'admOrders', products: 'admProducts', inventory: 'admInventory', bookings: 'admBookings', customers: 'admCustomers', analytics: 'admAnalytics', payments: 'admPayments', offers: 'admOffers', instagram: 'admInstagram', 'gallery-mgr': 'admGalleryMgr' };
             if (menuMap[viewId]) document.getElementById(menuMap[viewId])?.classList.add('active');
             document.querySelectorAll('.admin-view').forEach(v => v.classList.add('hidden'));
             const viewEl = document.getElementById(`view-${viewId}`);
             if (viewEl) viewEl.classList.remove('hidden');
-            const titles = { dashboard: 'Dashboard Overview', orders: 'Order Management', products: 'Product Inventory', inventory: 'Inventory Management', bookings: 'Booking Management', customers: 'Customer Management', analytics: 'Sales Analytics', payments: 'Payment Management', offers: 'Manage Offers' };
+            const titles = { dashboard: 'Dashboard Overview', orders: 'Order Management', products: 'Product Inventory', inventory: 'Inventory Management', bookings: 'Booking Management', customers: 'Customer Management', analytics: 'Sales Analytics', payments: 'Payment Management', offers: 'Manage Offers', instagram: 'Instagram Manager', 'gallery-mgr': 'Gallery Manager' };
             document.getElementById('adminPageTitle').innerText = titles[viewId] || viewId;
-            const renderMap = { dashboard: renderAdminStats, orders: renderAdminOrders, products: renderAdminProducts, inventory: renderInventory, bookings: renderAdminBookings, customers: renderAdminCustomers, analytics: renderAnalytics, payments: renderPayments, offers: renderOffers };
+            const renderMap = { dashboard: renderAdminStats, orders: renderAdminOrders, products: renderAdminProducts, inventory: renderInventory, bookings: renderAdminBookings, customers: renderAdminCustomers, analytics: renderAnalytics, payments: renderPayments, offers: renderOffers, instagram: renderInstaAdmin, 'gallery-mgr': renderGalleryAdmin };
             if (renderMap[viewId]) renderMap[viewId]();
             setupAnimations();
         }
@@ -6741,6 +6933,8 @@
             const topProds = products.slice(0, 5);
             document.getElementById('topSellingList').innerHTML = topProds.map((p, i) => `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f0f0f0;"><div style="display:flex;align-items:center;gap:10px;"><img src="${p.img}" style="width:35px;height:35px;object-fit:cover;border-radius:4px;"><span style="font-size:0.9rem;">${p.name}</span></div><span style="color:var(--primary-color);font-weight:700;">₹${p.price.toLocaleString()}</span></div>`).join('');
             const lowStock = products.filter(p => !p.soldOut && p.stock <= 5 && p.stock > 0);
+            const visEl = document.getElementById('dashVisitors');
+            if (visEl) visEl.textContent = parseInt(localStorage.getItem('sbVisitors') || '0').toLocaleString();
             document.getElementById('lowStockAlerts').innerHTML = lowStock.length ? lowStock.map(p => `<div class="inventory-alert" style="margin-bottom:10px;"><i class="fas fa-exclamation-triangle" style="color:#e65100;"></i><span><b>${p.name}</b> — Only ${p.stock} left!</span></div>`).join('') : '<p style="color:#888;text-align:center;padding:20px;"><i class="fas fa-check-circle" style="color:#28a745;"></i> All products are well-stocked!</p>';
         }
         function renderAdminOrders() {
@@ -6749,6 +6943,7 @@
             <td><b>${o.id}</b></td><td>${o.customer}</td><td>${o.items} Items</td><td><b>${o.total}</b></td><td>${o.date}</td>
             <td><select onchange="updateOrderStatus(${i},this.value)" style="padding:5px;border-radius:4px;border:1px solid #ddd;font-size:0.85rem;">
                 <option ${o.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                <option ${o.status === 'Confirmed' ? 'selected' : ''}>Confirmed</option>
                 <option ${o.status === 'Packed' ? 'selected' : ''}>Packed</option>
                 <option ${o.status === 'Shipped' ? 'selected' : ''}>Shipped</option>
                 <option ${o.status === 'Out for Delivery' ? 'selected' : ''}>Out for Delivery</option>
@@ -6759,7 +6954,20 @@
         </tr>
     `).join('');
         }
-        function updateOrderStatus(i, status) { orders[i].status = status; showToast(`Order ${orders[i].id} → ${status}`); renderAdminStats(); }
+        function updateOrderStatus(i, status) {
+            orders[i].status = status;
+            showToast('Order ' + orders[i].id + ' updated to: ' + status, 'success');
+            renderAdminStats();
+            // Floating WhatsApp notify button
+            const o = orders[i];
+            const waMsg = 'Hello! Your order *' + o.id + '* status updated to: *' + status + '*. Thank you for shopping at Saranya Boutique! 🛍️';
+            const prev = document.getElementById('waNotifyBtn'); if (prev) prev.remove();
+            const nb = document.createElement('div'); nb.id = 'waNotifyBtn';
+            nb.style.cssText = 'position:fixed;bottom:90px;right:20px;z-index:99999;';
+            nb.innerHTML = '<div style="background:#25D366;color:white;padding:12px 16px;border-radius:14px;font-size:0.85rem;box-shadow:0 4px 18px rgba(0,0,0,0.25);cursor:pointer;max-width:250px;" onclick="window.open(\'https://wa.me/91' + (o.customerPhone || '9876543210') + '?text=' + encodeURIComponent(waMsg) + '\',\'_blank\');this.parentElement.remove()"><i class=\"fab fa-whatsapp\" style=\"margin-right:6px;\"></i><b>Send WhatsApp Update</b><br><small style=\"opacity:0.85;\">Tap to notify: ' + status + '</small></div>';
+            document.body.appendChild(nb);
+            setTimeout(() => { if (document.getElementById('waNotifyBtn')) document.getElementById('waNotifyBtn').remove(); }, 9000);
+        }
         function handleImageUpload(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -7178,7 +7386,805 @@
             addLoyaltyPoints(amt);
             if (loyaltyPoints > 0) showToast(`🏆 You earned loyalty points! Total: ${loyaltyPoints} pts`, 'info');
         }
+
+        // ============================================================
+        // SARANYA BOUTIQUE — FEATURE UPGRADE JS (all standalone)
+        // ============================================================
+
+        // === DATA ===
+        var instagramPosts = JSON.parse(localStorage.getItem('sbInstaPosts') || 'null') || [
+            { id: 1, img: 'https://picsum.photos/seed/insta1/400/400', link: 'https://www.instagram.com/', caption: '✨ New Saree Collection just arrived! #Saree #Fashion' },
+            { id: 2, img: 'https://picsum.photos/seed/insta2/400/400', link: 'https://www.instagram.com/', caption: '💗 Bridal Dreams Collection #BridalWear #Lehenga' },
+            { id: 3, img: 'https://picsum.photos/seed/insta3/400/400', link: 'https://www.instagram.com/', caption: '🌸 Kurti Season is here! #Kurti #EthnicWear' },
+            { id: 4, img: 'https://picsum.photos/seed/insta4/400/400', link: 'https://www.instagram.com/', caption: '👑 Exclusive Designer Lehengas #Lehenga #Designer' },
+            { id: 5, img: 'https://picsum.photos/seed/insta5/400/400', link: 'https://www.instagram.com/', caption: '🎊 Festival Special Collection! #Festival' },
+            { id: 6, img: 'https://picsum.photos/seed/insta6/400/400', link: 'https://www.instagram.com/', caption: '💎 Premium Silk Sarees #Silk #Saree' }
+        ];
+        var galleryPhotos = JSON.parse(localStorage.getItem('sbGallery') || 'null') || [
+            { id: 1, img: 'https://picsum.photos/seed/gal1/600/800', category: 'Saree', caption: 'Banarasi Silk Beauty' },
+            { id: 2, img: 'https://picsum.photos/seed/gal2/600/800', category: 'Bridal', caption: 'Bridal Dreams' },
+            { id: 3, img: 'https://picsum.photos/seed/gal3/600/800', category: 'Lehenga', caption: 'Designer Lehenga' },
+            { id: 4, img: 'https://picsum.photos/seed/gal4/600/800', category: 'Kurti', caption: 'Elegant Kurti Set' },
+            { id: 5, img: 'https://picsum.photos/seed/gal5/600/800', category: 'New Arrival', caption: 'New Collection 2026' },
+            { id: 6, img: 'https://picsum.photos/seed/gal6/600/800', category: 'Saree', caption: 'Chiffon Grace' },
+            { id: 7, img: 'https://picsum.photos/seed/gal7/600/800', category: 'Bridal', caption: 'Bridal Lehenga Set' },
+            { id: 8, img: 'https://picsum.photos/seed/gal8/600/800', category: 'Kurti', caption: 'Cotton Printed Kurti' }
+        ];
+        var _tempInstaImg = null, _tempGalleryImg = null, _lbIdx = 0, _gcAmt = 0;
+        function _saveInsta() { localStorage.setItem('sbInstaPosts', JSON.stringify(instagramPosts)); }
+        function _saveGallery() { localStorage.setItem('sbGallery', JSON.stringify(galleryPhotos)); }
+
+        // === GALLERY LIGHTBOX ===
+        function openGalleryLightbox(id) {
+            var cat = window._galleryFilter || 'All';
+            var arr = (cat === 'All') ? galleryPhotos : galleryPhotos.filter(function (p) { return p.category === cat; });
+            _lbIdx = arr.findIndex(function (p) { return p.id === id; });
+            if (_lbIdx < 0) _lbIdx = 0;
+            _lbShow(arr);
+            document.getElementById('galleryLightbox').classList.add('open');
+        }
+        function _lbShow(arr) {
+            var p = arr[_lbIdx];
+            if (!p) return;
+            document.getElementById('lbImg').src = p.img;
+            document.getElementById('lbCaption').textContent = p.caption + ' · ' + p.category;
+        }
+        function lightboxNav(dir) {
+            var cat = window._galleryFilter || 'All';
+            var arr = (cat === 'All') ? galleryPhotos : galleryPhotos.filter(function (p) { return p.category === cat; });
+            _lbIdx = (_lbIdx + dir + arr.length) % arr.length;
+            _lbShow(arr);
+        }
+        function closeLightbox() {
+            document.getElementById('galleryLightbox').classList.remove('open');
+        }
+        document.addEventListener('keydown', function (e) {
+            var lb = document.getElementById('galleryLightbox');
+            if (lb && lb.classList.contains('open')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') lightboxNav(-1);
+                if (e.key === 'ArrowRight') lightboxNav(1);
+            }
+        });
+
+        // === INSTAGRAM ADMIN ===
+        function renderInstaAdmin() {
+            var g = document.getElementById('instaAdminGrid'); if (!g) return;
+            g.innerHTML = instagramPosts.map(function (p) {
+                return '<div style="background:white;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,0.1);position:relative;">' +
+                    '<img src="' + p.img + '" loading="lazy" style="width:100%;height:160px;object-fit:cover;">' +
+                    '<button onclick="deleteInstaPost(' + p.id + ')" style="position:absolute;top:7px;right:7px;background:rgba(220,53,69,0.92);color:white;border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:0.7rem;"><i class=\\"fas fa-trash\\"></i></button>' +
+                    '<div style="padding:10px;"><p style="font-size:0.8rem;color:#555;margin:0 0 5px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">' + p.caption + '</p>' +
+                    '<a href="' + p.link + '" target="_blank" style="color:#E1306C;font-size:0.8rem;"><i class=\\"fab fa-instagram\\"></i> View Post</a></div></div>';
+            }).join('');
+        }
+        function handleInstaUpload(e) {
+            var f = e.target.files[0]; if (!f) return;
+            if (!f.type.startsWith('image/')) { showToast('Please upload a valid image.', 'error'); return; }
+            if (f.size > 5 * 1024 * 1024) { showToast('Max image size is 5MB.', 'error'); return; }
+            var r = new FileReader();
+            r.onload = function (ev) {
+                _tempInstaImg = ev.target.result;
+                document.getElementById('instaUploadBox').innerHTML = '<i class="fas fa-check-circle" style="font-size:1.5rem;color:var(--primary-color);display:block;margin-bottom:5px;"></i><span style="color:#555;font-size:0.85rem;font-weight:600;">Image Ready!</span>';
+            };
+            r.readAsDataURL(f);
+        }
+        function saveInstaPost() {
+            var link = document.getElementById('instaLinkIn').value.trim();
+            var caption = document.getElementById('instaCaptionIn').value.trim();
+            if (!_tempInstaImg) { showToast('Please upload a photo.', 'error'); return; }
+            if (!link) { showToast('Please enter the Instagram post link.', 'error'); return; }
+            instagramPosts.unshift({ id: Date.now(), img: _tempInstaImg, link: link, caption: caption });
+            _saveInsta(); _tempInstaImg = null;
+            document.getElementById('instaLinkIn').value = '';
+            document.getElementById('instaCaptionIn').value = '';
+            document.getElementById('instaUploadBox').innerHTML = '<i class="fas fa-camera" style="font-size:1.6rem;color:#ccc;display:block;margin-bottom:6px;"></i><span style="color:#888;font-size:0.82rem;">Click to upload photo</span>';
+            document.getElementById('addInstaForm').classList.add('hidden');
+            renderInstaAdmin(); renderInstagramFeed();
+            showToast('Instagram post added! 📸', 'success');
+        }
+        function deleteInstaPost(id) {
+            if (!confirm('Delete this Instagram post?')) return;
+            instagramPosts = instagramPosts.filter(function (p) { return p.id !== id; });
+            _saveInsta(); renderInstaAdmin(); renderInstagramFeed();
+            showToast('Post deleted.', 'success');
+        }
+
+        // === GALLERY ADMIN ===
+        function renderGalleryAdmin() {
+            var g = document.getElementById('galleryAdminGrid'); if (!g) return;
+            g.innerHTML = galleryPhotos.map(function (p) {
+                return '<div style="background:white;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,0.1);">' +
+                    '<div style="position:relative;"><img src="' + p.img + '" loading="lazy" style="width:100%;height:135px;object-fit:cover;">' +
+                    '<div style="position:absolute;top:6px;right:6px;display:flex;gap:4px;">' +
+                    '<button onclick="editGalleryPhoto(' + p.id + ')" style="background:rgba(0,123,255,0.9);color:white;border:none;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:0.65rem;"><i class=\\"fas fa-edit\\"></i></button>' +
+                    '<button onclick="deleteGalleryPhoto(' + p.id + ')" style="background:rgba(220,53,69,0.9);color:white;border:none;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:0.65rem;"><i class=\\"fas fa-trash\\"></i></button>' +
+                    '</div></div>' +
+                    '<div style="padding:9px;"><div style="font-size:0.82rem;font-weight:600;margin-bottom:3px;">' + p.caption + '</div>' +
+                    '<span style="background:#fff0f5;color:var(--primary-color);padding:2px 8px;border-radius:10px;font-size:0.72rem;">' + p.category + '</span></div></div>';
+            }).join('');
+        }
+        function handleGalleryUpload(e) {
+            var f = e.target.files[0]; if (!f) return;
+            if (!f.type.startsWith('image/')) { showToast('Please upload a valid image.', 'error'); return; }
+            if (f.size > 10 * 1024 * 1024) { showToast('Max image size is 10MB.', 'error'); return; }
+            var r = new FileReader();
+            r.onload = function (ev) {
+                _tempGalleryImg = ev.target.result;
+                document.getElementById('galleryUploadBox').innerHTML = '<i class="fas fa-check-circle" style="font-size:1.5rem;color:var(--primary-color);display:block;margin-bottom:5px;"></i><span style="color:#555;font-size:0.85rem;font-weight:600;">Image Ready!</span>';
+            };
+            r.readAsDataURL(f);
+        }
+        function saveGalleryPhoto() {
+            var cat = document.getElementById('galleryCatIn').value;
+            var caption = document.getElementById('galleryCaptionIn').value.trim();
+            var editId = document.getElementById('galleryEditIdIn').value.trim();
+            if (editId) {
+                var p = galleryPhotos.find(function (x) { return x.id == editId; });
+                if (p) { if (_tempGalleryImg) p.img = _tempGalleryImg; p.category = cat; if (caption) p.caption = caption; }
+                showToast('Photo updated! ✅', 'success');
+            } else {
+                if (!_tempGalleryImg) { showToast('Please upload a photo.', 'error'); return; }
+                galleryPhotos.unshift({ id: Date.now(), img: _tempGalleryImg, category: cat, caption: caption || 'Gallery Photo' });
+                showToast('Photo added to gallery! 🖼️', 'success');
+            }
+            _saveGallery(); _tempGalleryImg = null;
+            document.getElementById('galleryCaptionIn').value = '';
+            document.getElementById('galleryEditIdIn').value = '';
+            document.getElementById('galleryUploadBox').innerHTML = '<i class="fas fa-image" style="font-size:1.6rem;color:#ccc;display:block;margin-bottom:6px;"></i><span style="color:#888;font-size:0.82rem;">Click to upload photo</span>';
+            document.getElementById('addGalleryForm').classList.add('hidden');
+            renderGalleryAdmin(); renderGalleryDynamic(window._galleryFilter || 'All');
+        }
+        function editGalleryPhoto(id) {
+            var p = galleryPhotos.find(function (x) { return x.id === id; }); if (!p) return;
+            document.getElementById('addGalleryForm').classList.remove('hidden');
+            document.getElementById('galleryCatIn').value = p.category;
+            document.getElementById('galleryCaptionIn').value = p.caption;
+            document.getElementById('galleryEditIdIn').value = p.id;
+            document.getElementById('galleryUploadBox').innerHTML = '<img src="' + p.img + '" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">';
+            document.getElementById('galleryUploadBox').scrollIntoView({ behavior: 'smooth' });
+        }
+        function deleteGalleryPhoto(id) {
+            if (!confirm('Delete this photo?')) return;
+            galleryPhotos = galleryPhotos.filter(function (p) { return p.id !== id; });
+            _saveGallery(); renderGalleryAdmin(); renderGalleryDynamic(window._galleryFilter || 'All');
+            showToast('Photo deleted.', 'success');
+        }
+
+        // === COUNTDOWN TIMER ===
+        (function () {
+            var end = new Date(Date.now() + 7 * 86400000);
+            function pad(n) { return String(Math.floor(n)).padStart(2, '0'); }
+            function tick() {
+                var diff = end - Date.now();
+                if (diff <= 0) return;
+                var d = diff / 86400000, h = (diff % 86400000) / 3600000, m = (diff % 3600000) / 60000, s = (diff % 60000) / 1000;
+                var de = document.getElementById('ctDays'), he = document.getElementById('ctHours'), me = document.getElementById('ctMins'), se = document.getElementById('ctSecs');
+                if (de) de.textContent = pad(d);
+                if (he) he.textContent = pad(h);
+                if (me) me.textContent = pad(m);
+                if (se) se.textContent = pad(s);
+            }
+            tick(); setInterval(tick, 1000);
+        })();
+
+        // === GIFT CARDS ===
+        function selectGiftCard(amt, el) {
+            _gcAmt = amt;
+            document.querySelectorAll('.gc-opt').forEach(function (c) { c.style.transform = ''; });
+            el.style.transform = 'translateY(-7px) scale(1.04)';
+            var f = document.getElementById('gcFormWrap'); if (!f) return;
+            f.style.display = 'block';
+            document.getElementById('gcAmtDisplay').textContent = '₹' + amt.toLocaleString();
+            f.scrollIntoView({ behavior: 'smooth' });
+        }
+        function purchaseGiftCard() {
+            var r = (document.getElementById('gcRecipient') || {}).value || '';
+            var e = (document.getElementById('gcEmail') || {}).value || '';
+            if (!r.trim() || !e.trim()) { showToast('Please fill in all fields.', 'error'); return; }
+            if (!_gcAmt) { showToast('Please select a gift card value.', 'error'); return; }
+            var code = 'GC' + Date.now().toString().slice(-6);
+            coupons.push({ code: code, discount: _gcAmt, type: 'flat', desc: 'Gift Card ₹' + _gcAmt.toLocaleString(), minOrder: 0 });
+            showToast('🎁 Gift Card created! Code: ' + code + ' sent to ' + e, 'success');
+            var f = document.getElementById('gcFormWrap'); if (f) f.style.display = 'none';
+        }
+
+        // === REFER & EARN ===
+        function _getRefCode() {
+            if (!currentUser) return 'SARANYA200';
+            return (currentUser.name || 'USER').replace(/\s+/g, '').toUpperCase().slice(0, 6) + '200';
+        }
+        function copyReferralCode() {
+            var code = (document.getElementById('refCodeEl') || {}).textContent || _getRefCode();
+            navigator.clipboard.writeText(code)
+                .then(function () { showToast('Code copied! 📋', 'success'); })
+                .catch(function () { showToast('Your code: ' + code, 'info'); });
+        }
+        function shareReferral() {
+            var code = _getRefCode();
+            var msg = '🛍️ Shop at Saranya Boutique for premium Indian ethnic wear! Use my referral code *' + code + '* and get ₹200 off your first order! 🎁';
+            window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+        }
+        // Update referral code when page opens
+        (function _initRefer() {
+            var el = document.getElementById('refCodeEl');
+            if (el) el.textContent = _getRefCode();
+        })();
+
+        // === VOICE SEARCH ===
+        function startVoiceSearch() {
+            var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SR) { showToast('Voice search is not supported in this browser.', 'error'); return; }
+            var rec = new SR(); rec.lang = 'en-IN'; rec.interimResults = false;
+            var btn = document.getElementById('voiceBtn');
+            if (btn) btn.classList.add('voice-active');
+            showToast('🎤 Listening... speak a product name!', 'info');
+            rec.onresult = function (ev) {
+                var text = ev.results[0][0].transcript;
+                if (btn) btn.classList.remove('voice-active');
+                var si = document.getElementById('searchInput');
+                if (si) {
+                    si.value = text;
+                    document.getElementById('searchBar').classList.add('active');
+                    handleSearch(text);
+                }
+                showToast('Searching: "' + text + '"', 'success');
+            };
+            rec.onerror = function () { if (btn) btn.classList.remove('voice-active'); showToast('Voice search failed. Try again.', 'error'); };
+            rec.onend = function () { if (btn) btn.classList.remove('voice-active'); };
+            rec.start();
+        }
+
+        // === CONTACT FORM ===
+        function submitContactForm(e) {
+            e.preventDefault();
+            showToast('✅ Message sent! We will reply within 24 hours.', 'success');
+            e.target.reset();
+        }
+
+        // === INIT ===
+        (function () {
+            // Restore session
+            try { var s = localStorage.getItem('sbSession'); if (s && !currentUser) currentUser = JSON.parse(s); } catch (_) { }
+            // Render instagram on load
+            setTimeout(function () { renderInstagramFeed(); }, 200);
+            // Update referral code if logged in
+            var refEl = document.getElementById('refCodeEl');
+            if (refEl && currentUser) refEl.textContent = _getRefCode();
+        })();
+
     </script>
+
+    <!-- ===== GALLERY LIGHTBOX ===== -->
+    <div id="galleryLightbox" onclick="if(event.target===this)closeLightbox()">
+        <button onclick="closeLightbox()"
+            style="position:absolute;top:16px;right:20px;background:none;border:none;color:white;font-size:2.2rem;cursor:pointer;line-height:1;z-index:2;">×</button>
+        <button onclick="lightboxNav(-1)"
+            style="position:absolute;left:12px;background:rgba(255,255,255,0.12);border:none;color:white;font-size:2rem;cursor:pointer;width:48px;height:48px;border-radius:50%;">‹</button>
+        <img id="lbImg" src=""
+            style="max-height:82vh;max-width:88vw;border-radius:8px;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,0.5);"
+            loading="lazy">
+        <p id="lbCaption"
+            style="color:rgba(255,255,255,0.85);margin-top:12px;font-size:0.92rem;text-align:center;padding:0 20px;">
+        </p>
+        <button onclick="lightboxNav(1)"
+            style="position:absolute;right:12px;background:rgba(255,255,255,0.12);border:none;color:white;font-size:2rem;cursor:pointer;width:48px;height:48px;border-radius:50%;">›</button>
+    </div>
+
+    <!-- ===== ADMIN: Instagram Manager ===== -->
+    <div id="view-instagram" class="admin-view hidden" style="padding:20px;">
+        <div class="admin-section-card">
+            <div class="section-card-header">
+                <h3><i class="fab fa-instagram" style="color:#E1306C;margin-right:8px;"></i>Instagram Manager</h3>
+                <button class="admin-add-btn"
+                    onclick="document.getElementById('addInstaForm').classList.toggle('hidden')"><i
+                        class="fas fa-plus"></i> Add Post</button>
+            </div>
+            <div id="addInstaForm" class="hidden"
+                style="background:#fff8f9;border:1px solid #f0d0da;border-radius:12px;padding:20px;margin-bottom:20px;">
+                <h4 style="margin-bottom:14px;color:var(--primary-color);">Add New Instagram Post</h4>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+                    <div>
+                        <label style="font-size:0.85rem;font-weight:600;display:block;margin-bottom:6px;">Photo</label>
+                        <div id="instaUploadBox" onclick="document.getElementById('instaFileIn').click()"
+                            style="border:2px dashed #f0d0da;border-radius:10px;height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;background:white;gap:6px;">
+                            <i class="fas fa-camera" style="font-size:1.6rem;color:#ccc;"></i>
+                            <span style="color:#888;font-size:0.82rem;">Click to upload photo</span>
+                        </div>
+                        <input type="file" id="instaFileIn" accept="image/*" style="display:none;"
+                            onchange="handleInstaUpload(event)">
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px;">
+                        <div>
+                            <label style="font-size:0.85rem;font-weight:600;display:block;margin-bottom:4px;">Instagram
+                                Post Link</label>
+                            <input type="url" id="instaLinkIn" class="form-input"
+                                placeholder="https://www.instagram.com/p/...">
+                        </div>
+                        <div>
+                            <label
+                                style="font-size:0.85rem;font-weight:600;display:block;margin-bottom:4px;">Caption</label>
+                            <textarea id="instaCaptionIn" class="form-input" rows="3" placeholder="Caption..."
+                                style="resize:vertical;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:14px;display:flex;gap:10px;">
+                    <button class="admin-add-btn" onclick="saveInstaPost()"><i class="fas fa-save"></i> Save
+                        Post</button>
+                    <button onclick="document.getElementById('addInstaForm').classList.add('hidden')"
+                        style="background:#f0f0f0;color:#555;border:none;padding:10px 18px;border-radius:8px;cursor:pointer;">Cancel</button>
+                </div>
+            </div>
+            <div id="instaAdminGrid"
+                style="display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:14px;"></div>
+        </div>
+    </div>
+
+    <!-- ===== ADMIN: Gallery Manager ===== -->
+    <div id="view-gallery-mgr" class="admin-view hidden" style="padding:20px;">
+        <div class="admin-section-card">
+            <div class="section-card-header">
+                <h3><i class="fas fa-images" style="color:var(--primary-color);margin-right:8px;"></i>Gallery Manager
+                </h3>
+                <button class="admin-add-btn"
+                    onclick="document.getElementById('addGalleryForm').classList.toggle('hidden');document.getElementById('galleryEditIdIn').value=''"><i
+                        class="fas fa-plus"></i> Add Photo</button>
+            </div>
+            <div id="addGalleryForm" class="hidden"
+                style="background:#fff8f9;border:1px solid #f0d0da;border-radius:12px;padding:20px;margin-bottom:20px;">
+                <h4 style="margin-bottom:14px;color:var(--primary-color);">Add / Edit Gallery Photo</h4>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+                    <div>
+                        <label style="font-size:0.85rem;font-weight:600;display:block;margin-bottom:6px;">Photo</label>
+                        <div id="galleryUploadBox" onclick="document.getElementById('galleryFileIn').click()"
+                            style="border:2px dashed #f0d0da;border-radius:10px;height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;background:white;gap:6px;">
+                            <i class="fas fa-image" style="font-size:1.6rem;color:#ccc;"></i>
+                            <span style="color:#888;font-size:0.82rem;">Click to upload photo</span>
+                        </div>
+                        <input type="file" id="galleryFileIn" accept="image/*" style="display:none;"
+                            onchange="handleGalleryUpload(event)">
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px;">
+                        <div>
+                            <label
+                                style="font-size:0.85rem;font-weight:600;display:block;margin-bottom:4px;">Category</label>
+                            <select id="galleryCatIn" class="form-input">
+                                <option>Saree</option>
+                                <option>Kurti</option>
+                                <option>Lehenga</option>
+                                <option>Bridal</option>
+                                <option>New Arrival</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label
+                                style="font-size:0.85rem;font-weight:600;display:block;margin-bottom:4px;">Caption</label>
+                            <input type="text" id="galleryCaptionIn" class="form-input" placeholder="Photo caption...">
+                        </div>
+                        <input type="hidden" id="galleryEditIdIn">
+                    </div>
+                </div>
+                <div style="margin-top:14px;display:flex;gap:10px;">
+                    <button class="admin-add-btn" onclick="saveGalleryPhoto()"><i class="fas fa-save"></i> Save</button>
+                    <button onclick="document.getElementById('addGalleryForm').classList.add('hidden')"
+                        style="background:#f0f0f0;color:#555;border:none;padding:10px 18px;border-radius:8px;cursor:pointer;">Cancel</button>
+                </div>
+            </div>
+            <div id="galleryAdminGrid"
+                style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;"></div>
+        </div>
+    </div>
+
+    <!-- ===== NEW PAGE: ABOUT US ===== -->
+    <section id="np-about" class="new-page-section">
+        <div class="section-header" style="padding:40px 20px 20px;">
+            <h2 class="section-title">About Saranya Boutique</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div style="max-width:900px;margin:0 auto;padding:0 20px 50px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-bottom:30px;">
+                <img src="https://picsum.photos/seed/about1/500/400" loading="lazy"
+                    style="border-radius:16px;width:100%;box-shadow:0 10px 30px rgba(0,0,0,0.12);" alt="About Us">
+                <div>
+                    <h3
+                        style="font-size:1.7rem;color:var(--primary-color);margin-bottom:12px;font-family:var(--heading-font);">
+                        Our Story</h3>
+                    <p style="color:#555;line-height:1.85;margin-bottom:14px;">Saranya Boutique was founded with one
+                        dream — to bring the finest Indian ethnic wear to every woman who cherishes tradition with a
+                        modern touch. From the heart of Punjab, we curate exquisite sarees, lehengas, kurtis, and bridal
+                        collections.</p>
+                    <p style="color:#555;line-height:1.85;margin-bottom:22px;">Over the years we've dressed thousands of
+                        brides, built lasting relationships, and become a trusted name in fashion across India.</p>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                        <div style="background:#fff0f5;padding:14px;border-radius:12px;text-align:center;">
+                            <div style="font-size:1.7rem;font-weight:800;color:var(--primary-color);">5000+</div>
+                            <div style="font-size:0.82rem;color:#777;">Happy Customers</div>
+                        </div>
+                        <div style="background:#fff0f5;padding:14px;border-radius:12px;text-align:center;">
+                            <div style="font-size:1.7rem;font-weight:800;color:var(--primary-color);">500+</div>
+                            <div style="font-size:0.82rem;color:#777;">Products</div>
+                        </div>
+                        <div style="background:#fff0f5;padding:14px;border-radius:12px;text-align:center;">
+                            <div style="font-size:1.7rem;font-weight:800;color:var(--primary-color);">10+</div>
+                            <div style="font-size:0.82rem;color:#777;">Years Experience</div>
+                        </div>
+                        <div style="background:#fff0f5;padding:14px;border-radius:12px;text-align:center;">
+                            <div style="font-size:1.7rem;font-weight:800;color:var(--primary-color);">4.9★</div>
+                            <div style="font-size:0.82rem;color:#777;">Customer Rating</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                style="background:linear-gradient(135deg,var(--primary-color),var(--accent-color));color:white;padding:28px;border-radius:16px;text-align:center;">
+                <h3 style="margin-bottom:10px;font-family:var(--heading-font);">Our Mission</h3>
+                <p style="opacity:0.92;line-height:1.7;max-width:600px;margin:0 auto;">To celebrate every woman's beauty
+                    by offering premium ethnic wear that combines tradition, quality, and affordability — making every
+                    day feel special.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== NEW PAGE: CONTACT ===== -->
+    <section id="np-contact" class="new-page-section">
+        <div class="section-header" style="padding:40px 20px 20px;">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div
+            style="max-width:900px;margin:0 auto;padding:0 20px 50px;display:grid;grid-template-columns:1fr 1fr;gap:30px;">
+            <div>
+                <h3 style="margin-bottom:18px;color:var(--primary-color);">Get In Touch</h3>
+                <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:22px;">
+                    <div style="display:flex;align-items:flex-start;gap:12px;">
+                        <div
+                            style="min-width:38px;height:38px;background:var(--primary-color);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:0.9rem;">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <div style="font-weight:600;">Address</div>
+                            <div style="color:#666;font-size:0.88rem;">123 Fashion Street, Model Town, Ludhiana, Punjab
+                                – 141001</div>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:12px;">
+                        <div
+                            style="min-width:38px;height:38px;background:var(--primary-color);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:0.9rem;">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <div style="font-weight:600;">Phone</div>
+                            <div style="color:#666;font-size:0.88rem;">+91 98765 43210</div>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:12px;">
+                        <div
+                            style="min-width:38px;height:38px;background:var(--primary-color);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:0.9rem;">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <div style="font-weight:600;">Email</div>
+                            <div style="color:#666;font-size:0.88rem;">hello@saranyaboutique.com</div>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:12px;">
+                        <div
+                            style="min-width:38px;height:38px;background:var(--primary-color);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:0.9rem;">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <div style="font-weight:600;">Hours</div>
+                            <div style="color:#666;font-size:0.88rem;">Mon–Sat: 10AM–8PM · Sun: 11AM–6PM</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://wa.me/919876543210" target="_blank"
+                    style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:white;padding:11px 22px;border-radius:30px;text-decoration:none;font-weight:600;"><i
+                        class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+            </div>
+            <div>
+                <h3 style="margin-bottom:18px;color:var(--primary-color);">Send a Message</h3>
+                <form onsubmit="submitContactForm(event)" style="display:flex;flex-direction:column;gap:12px;">
+                    <input type="text" placeholder="Your Name" class="form-input" required>
+                    <input type="email" placeholder="Your Email" class="form-input" required>
+                    <input type="tel" placeholder="Phone Number" class="form-input">
+                    <textarea placeholder="Your Message..." class="form-input" rows="4" required
+                        style="resize:vertical;"></textarea>
+                    <button type="submit" class="btn-primary" style="cursor:pointer;"><i class="fas fa-paper-plane"></i>
+                        Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== NEW PAGE: BLOG ===== -->
+    <section id="np-blog" class="new-page-section">
+        <div class="section-header" style="padding:40px 20px 20px;">
+            <h2 class="section-title">Style Blog</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div
+            style="max-width:1000px;margin:0 auto;padding:0 20px 50px;display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:24px;">
+            <div style="background:white;border-radius:16px;overflow:hidden;box-shadow:0 5px 20px rgba(0,0,0,0.08);">
+                <img src="https://picsum.photos/seed/blog1/400/250" loading="lazy"
+                    style="width:100%;height:188px;object-fit:cover;">
+                <div style="padding:18px;"><span
+                        style="background:#fff0f5;color:var(--primary-color);padding:3px 12px;border-radius:20px;font-size:0.78rem;font-weight:600;">Bridal</span>
+                    <h3 style="margin:10px 0 8px;font-size:1.02rem;">Top 10 Bridal Saree Trends of 2026</h3>
+                    <p style="color:#666;font-size:0.87rem;line-height:1.6;margin-bottom:12px;">Discover the most
+                        stunning bridal saree trends that will make your special day unforgettable...</p>
+                    <div style="display:flex;justify-content:space-between;align-items:center;"><span
+                            style="color:#888;font-size:0.78rem;">June 15, 2026</span><button
+                            onclick="showToast('Full blog coming soon!','info')"
+                            style="background:var(--primary-color);color:white;border:none;padding:6px 13px;border-radius:20px;cursor:pointer;font-size:0.82rem;">Read
+                            More</button></div>
+                </div>
+            </div>
+            <div style="background:white;border-radius:16px;overflow:hidden;box-shadow:0 5px 20px rgba(0,0,0,0.08);">
+                <img src="https://picsum.photos/seed/blog2/400/250" loading="lazy"
+                    style="width:100%;height:188px;object-fit:cover;">
+                <div style="padding:18px;"><span
+                        style="background:#fff0f5;color:var(--primary-color);padding:3px 12px;border-radius:20px;font-size:0.78rem;font-weight:600;">Fashion
+                        Tips</span>
+                    <h3 style="margin:10px 0 8px;font-size:1.02rem;">How to Style a Kurti for Every Occasion</h3>
+                    <p style="color:#666;font-size:0.87rem;line-height:1.6;margin-bottom:12px;">From casual outings to
+                        festive celebrations, learn how to rock a kurti with confidence...</p>
+                    <div style="display:flex;justify-content:space-between;align-items:center;"><span
+                            style="color:#888;font-size:0.78rem;">June 10, 2026</span><button
+                            onclick="showToast('Full blog coming soon!','info')"
+                            style="background:var(--primary-color);color:white;border:none;padding:6px 13px;border-radius:20px;cursor:pointer;font-size:0.82rem;">Read
+                            More</button></div>
+                </div>
+            </div>
+            <div style="background:white;border-radius:16px;overflow:hidden;box-shadow:0 5px 20px rgba(0,0,0,0.08);">
+                <img src="https://picsum.photos/seed/blog3/400/250" loading="lazy"
+                    style="width:100%;height:188px;object-fit:cover;">
+                <div style="padding:18px;"><span
+                        style="background:#fff0f5;color:var(--primary-color);padding:3px 12px;border-radius:20px;font-size:0.78rem;font-weight:600;">Care
+                        Guide</span>
+                    <h3 style="margin:10px 0 8px;font-size:1.02rem;">How to Care for Silk Sarees</h3>
+                    <p style="color:#666;font-size:0.87rem;line-height:1.6;margin-bottom:12px;">Expert tips to keep your
+                        precious silk sarees looking fresh and vibrant for years to come...</p>
+                    <div style="display:flex;justify-content:space-between;align-items:center;"><span
+                            style="color:#888;font-size:0.78rem;">June 5, 2026</span><button
+                            onclick="showToast('Full blog coming soon!','info')"
+                            style="background:var(--primary-color);color:white;border:none;padding:6px 13px;border-radius:20px;cursor:pointer;font-size:0.82rem;">Read
+                            More</button></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== NEW PAGE: PRIVACY POLICY ===== -->
+    <section id="np-privacy" class="new-page-section">
+        <div class="section-header" style="padding:40px 20px 20px;">
+            <h2 class="section-title">Privacy Policy</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div style="max-width:800px;margin:0 auto;padding:0 20px 50px;line-height:1.85;color:#555;">
+            <p style="font-size:0.87rem;color:#999;margin-bottom:20px;">Last updated: June 18, 2026</p>
+            <h3 style="color:var(--primary-color);margin:22px 0 10px;">1. Information We Collect</h3>
+            <p>We collect personal information such as your name, email, phone number, and shipping address when you
+                place an order or create an account with Saranya Boutique.</p>
+            <h3 style="color:var(--primary-color);margin:22px 0 10px;">2. How We Use Your Information</h3>
+            <p>Your information is used to process orders, provide customer support, send order updates via
+                WhatsApp/SMS, and improve our services. We do not sell your data to third parties.</p>
+            <h3 style="color:var(--primary-color);margin:22px 0 10px;">3. Data Security</h3>
+            <p>We implement industry-standard security measures to protect your personal information. Your cart,
+                wishlist, and session are saved using browser localStorage only.</p>
+            <h3 style="color:var(--primary-color);margin:22px 0 10px;">4. Contact Us</h3>
+            <p>For privacy queries: <a href="mailto:privacy@saranyaboutique.com"
+                    style="color:var(--primary-color);">privacy@saranyaboutique.com</a></p>
+        </div>
+    </section>
+
+    <!-- ===== NEW PAGE: TERMS ===== -->
+    <section id="np-terms" class="new-page-section">
+        <div class="section-header" style="padding:40px 20px 20px;">
+            <h2 class="section-title">Terms &amp; Conditions</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div style="max-width:800px;margin:0 auto;padding:0 20px 50px;line-height:1.85;color:#555;">
+            <p style="font-size:0.87rem;color:#999;margin-bottom:20px;">Last updated: June 18, 2026</p>
+            <h3 style="color:var(--primary-color);margin:22px 0 10px;">1. Acceptance</h3>
+            <p>By using Saranya Boutique's website and services, you agree to these Terms &amp; Conditions. Please read
+                them carefully before making a purchase.</p>
+            <h3 style="color:var(--primary-color);margin:22px 0 10px;">2. Products &amp; Pricing</h3>
+            <p>All prices are in Indian Rupees (₹) and include applicable GST. We reserve the right to change prices
+                without prior notice. Product images are for illustration purposes only.</p>
+            <h3 style="color:var(--primary-color);margin:22px 0 10px;">3. Orders</h3>
+            <p>Orders are subject to availability. We reserve the right to cancel any order due to stock unavailability
+                and will provide a full refund in such cases.</p>
+            <h3 style="color:var(--primary-color);margin:22px 0 10px;">4. Intellectual Property</h3>
+            <p>All content on this website including images, logos, and text is the property of Saranya Boutique.
+                Unauthorised use is prohibited.</p>
+            <h3 style="color:var(--primary-color);margin:22px 0 10px;">5. Governing Law</h3>
+            <p>These terms are governed by the laws of India. Disputes are subject to the jurisdiction of courts in
+                Ludhiana, Punjab.</p>
+        </div>
+    </section>
+
+    <!-- ===== NEW PAGE: SHIPPING ===== -->
+    <section id="np-shipping" class="new-page-section">
+        <div class="section-header" style="padding:40px 20px 20px;">
+            <h2 class="section-title">Shipping Policy</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div style="max-width:800px;margin:0 auto;padding:0 20px 50px;">
+            <div
+                style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:26px;">
+                <div style="background:#fff0f5;padding:18px;border-radius:12px;text-align:center;"><i
+                        class="fas fa-truck"
+                        style="font-size:1.8rem;color:var(--primary-color);margin-bottom:8px;display:block;"></i>
+                    <h4>Free Delivery</h4>
+                    <p style="color:#666;font-size:0.87rem;">On orders above ₹2,000</p>
+                </div>
+                <div style="background:#fff0f5;padding:18px;border-radius:12px;text-align:center;"><i
+                        class="fas fa-clock"
+                        style="font-size:1.8rem;color:var(--primary-color);margin-bottom:8px;display:block;"></i>
+                    <h4>5–7 Business Days</h4>
+                    <p style="color:#666;font-size:0.87rem;">Standard delivery across India</p>
+                </div>
+                <div style="background:#fff0f5;padding:18px;border-radius:12px;text-align:center;"><i
+                        class="fas fa-map-marked-alt"
+                        style="font-size:1.8rem;color:var(--primary-color);margin-bottom:8px;display:block;"></i>
+                    <h4>Pan India</h4>
+                    <p style="color:#666;font-size:0.87rem;">All states &amp; territories</p>
+                </div>
+            </div>
+            <div
+                style="background:white;border-radius:12px;padding:22px;box-shadow:0 2px 10px rgba(0,0,0,0.06);line-height:2;color:#555;">
+                <h3 style="color:var(--primary-color);margin-bottom:12px;">Shipping Charges</h3>
+                <p>✅ Orders above ₹2,000 — <b>FREE Shipping</b></p>
+                <p>📦 Orders below ₹2,000 — <b>₹80 flat</b> shipping fee</p>
+                <p>🚀 Express delivery (2–3 days) — <b>₹150 additional</b></p>
+                <p>🌍 International shipping — available on request via WhatsApp</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== NEW PAGE: RETURN ===== -->
+    <section id="np-return" class="new-page-section">
+        <div class="section-header" style="padding:40px 20px 20px;">
+            <h2 class="section-title">Return &amp; Refund Policy</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div style="max-width:800px;margin:0 auto;padding:0 20px 50px;line-height:1.85;color:#555;">
+            <div
+                style="background:#e8f5e9;padding:16px 20px;border-radius:12px;margin-bottom:22px;border-left:4px solid #4CAF50;">
+                <p style="color:#2E7D32;font-weight:600;margin:0;"><i class="fas fa-check-circle"></i> 7-Day Easy
+                    Returns — No Questions Asked on Damaged / Wrong Items</p>
+            </div>
+            <h3 style="color:var(--primary-color);margin:20px 0 10px;">Return Conditions</h3>
+            <p>✅ Item must be unused and in original packaging with tags attached.<br>✅ Return request must be raised
+                within 7 days of delivery.<br>❌ Customised / stitched items are non-returnable.<br>❌ Sale items cannot
+                be returned.</p>
+            <h3 style="color:var(--primary-color);margin:20px 0 10px;">Refund Process</h3>
+            <p>Refunds are processed within 5–7 business days to your original payment method or as store credit (your
+                choice).</p>
+            <button
+                onclick="window.open('https://wa.me/919876543210?text=I%20want%20to%20initiate%20a%20return.','_blank')"
+                style="background:#25D366;color:white;border:none;padding:11px 22px;border-radius:30px;cursor:pointer;font-weight:600;margin-top:10px;"><i
+                    class="fab fa-whatsapp"></i> Start Return on WhatsApp</button>
+        </div>
+    </section>
+
+    <!-- ===== NEW PAGE: GIFT CARDS ===== -->
+    <section id="np-giftcards" class="new-page-section">
+        <div class="section-header" style="padding:40px 20px 20px;">
+            <h2 class="section-title">Gift Cards</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div style="max-width:800px;margin:0 auto;padding:0 20px 50px;">
+            <p style="text-align:center;color:#666;margin-bottom:26px;">Give the gift of choice! Perfect for birthdays,
+                anniversaries, and every celebration.</p>
+            <div
+                style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px;margin-bottom:26px;">
+                <div class="gc-opt" onclick="selectGiftCard(500,this)"
+                    style="background:linear-gradient(135deg,var(--primary-color),var(--accent-color));color:white;padding:22px;border-radius:16px;text-align:center;box-shadow:0 8px 25px rgba(128,0,32,0.3);">
+                    <div style="font-size:0.83rem;opacity:0.8;">Gift Card</div>
+                    <div style="font-size:2.1rem;font-weight:800;">₹500</div>
+                    <div style="font-size:0.78rem;opacity:0.85;">Starter Gift</div>
+                </div>
+                <div class="gc-opt" onclick="selectGiftCard(1000,this)"
+                    style="background:linear-gradient(135deg,#c0392b,#8e44ad);color:white;padding:22px;border-radius:16px;text-align:center;box-shadow:0 8px 25px rgba(142,68,173,0.3);">
+                    <div style="font-size:0.83rem;opacity:0.8;">Gift Card</div>
+                    <div style="font-size:2.1rem;font-weight:800;">₹1,000</div>
+                    <div style="font-size:0.78rem;opacity:0.85;">Most Popular</div>
+                </div>
+                <div class="gc-opt" onclick="selectGiftCard(2000,this)"
+                    style="background:linear-gradient(135deg,#d4af37,#b8860b);color:white;padding:22px;border-radius:16px;text-align:center;box-shadow:0 8px 25px rgba(212,175,55,0.3);">
+                    <div style="font-size:0.83rem;opacity:0.8;">Gift Card</div>
+                    <div style="font-size:2.1rem;font-weight:800;">₹2,000</div>
+                    <div style="font-size:0.78rem;opacity:0.85;">Premium</div>
+                </div>
+                <div class="gc-opt" onclick="selectGiftCard(5000,this)"
+                    style="background:linear-gradient(135deg,#1a1a2e,#16213e);color:white;padding:22px;border-radius:16px;text-align:center;box-shadow:0 8px 25px rgba(0,0,0,0.3);">
+                    <div style="font-size:0.83rem;opacity:0.8;">Gift Card</div>
+                    <div style="font-size:2.1rem;font-weight:800;">₹5,000</div>
+                    <div style="font-size:0.78rem;opacity:0.85;">Luxury</div>
+                </div>
+            </div>
+            <div id="gcFormWrap"
+                style="display:none;background:white;border-radius:16px;padding:24px;box-shadow:0 5px 20px rgba(0,0,0,0.08);">
+                <h3 style="color:var(--primary-color);margin-bottom:16px;">Personalise Your Gift Card</h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+                    <div><label style="font-size:0.85rem;font-weight:600;display:block;margin-bottom:4px;">Recipient
+                            Name</label><input type="text" id="gcRecipient" class="form-input" placeholder="Enter name">
+                    </div>
+                    <div><label style="font-size:0.85rem;font-weight:600;display:block;margin-bottom:4px;">Recipient
+                            Email</label><input type="email" id="gcEmail" class="form-input"
+                            placeholder="email@example.com"></div>
+                    <div style="grid-column:1/-1;"><label
+                            style="font-size:0.85rem;font-weight:600;display:block;margin-bottom:4px;">Personal
+                            Message</label><textarea id="gcMsg" class="form-input" rows="3"
+                            placeholder="Write a heartfelt message..." style="resize:vertical;"></textarea></div>
+                </div>
+                <div style="margin-top:12px;padding:10px;background:#fff0f5;border-radius:8px;"><b>Selected:</b> <span
+                        id="gcAmtDisplay" style="color:var(--primary-color);font-weight:800;font-size:1.1rem;">₹0</span>
+                </div>
+                <button onclick="purchaseGiftCard()" class="btn-primary"
+                    style="margin-top:14px;width:100%;cursor:pointer;"><i class="fas fa-gift"></i> Purchase Gift
+                    Card</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== NEW PAGE: REFER & EARN ===== -->
+    <section id="np-refer" class="new-page-section">
+        <div class="section-header" style="padding:40px 20px 20px;">
+            <h2 class="section-title">Refer &amp; Earn</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div style="max-width:680px;margin:0 auto;padding:0 20px 50px;">
+            <div
+                style="background:linear-gradient(135deg,var(--primary-color),var(--accent-color));color:white;padding:28px;border-radius:20px;text-align:center;margin-bottom:26px;">
+                <i class="fas fa-users" style="font-size:2.8rem;margin-bottom:12px;opacity:0.9;display:block;"></i>
+                <h3 style="font-size:1.4rem;margin-bottom:10px;">Earn ₹200 for Every Friend!</h3>
+                <p style="opacity:0.9;line-height:1.7;">Refer your friends — when they make their first purchase, you
+                    BOTH get ₹200 off!</p>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:26px;text-align:center;">
+                <div style="background:white;padding:18px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+                    <div
+                        style="width:44px;height:44px;background:#fff0f5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">
+                        <i class="fas fa-share-alt" style="color:var(--primary-color);font-size:1.1rem;"></i>
+                    </div><b style="font-size:0.87rem;">1. Share</b>
+                    <p style="color:#888;font-size:0.78rem;margin-top:4px;">Share your referral code</p>
+                </div>
+                <div style="background:white;padding:18px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+                    <div
+                        style="width:44px;height:44px;background:#fff0f5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">
+                        <i class="fas fa-shopping-bag" style="color:var(--primary-color);font-size:1.1rem;"></i>
+                    </div><b style="font-size:0.87rem;">2. Friend Shops</b>
+                    <p style="color:#888;font-size:0.78rem;margin-top:4px;">They use your code</p>
+                </div>
+                <div style="background:white;padding:18px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+                    <div
+                        style="width:44px;height:44px;background:#fff0f5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">
+                        <i class="fas fa-rupee-sign" style="color:var(--primary-color);font-size:1.1rem;"></i>
+                    </div><b style="font-size:0.87rem;">3. Both Earn</b>
+                    <p style="color:#888;font-size:0.78rem;margin-top:4px;">₹200 off for both!</p>
+                </div>
+            </div>
+            <div
+                style="background:white;border-radius:16px;padding:24px;box-shadow:0 5px 20px rgba(0,0,0,0.08);text-align:center;">
+                <p style="color:#888;margin-bottom:12px;font-size:0.88rem;">Your Referral Code</p>
+                <div id="refCodeEl"
+                    style="font-size:1.8rem;font-weight:800;color:var(--primary-color);letter-spacing:4px;background:#fff0f5;padding:14px;border-radius:12px;margin-bottom:14px;border:2px dashed var(--primary-color);">
+                    SARANYA200</div>
+                <div style="display:flex;gap:10px;justify-content:center;">
+                    <button onclick="copyReferralCode()" class="btn-primary" style="cursor:pointer;"><i
+                            class="fas fa-copy"></i> Copy Code</button>
+                    <button onclick="shareReferral()"
+                        style="background:#25D366;color:white;border:none;padding:12px 18px;border-radius:30px;cursor:pointer;font-weight:600;font-size:0.88rem;"><i
+                            class="fab fa-whatsapp"></i> Share</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </body>
 
 </html>
