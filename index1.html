@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saranya Boutique | Premium Fashion</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 1. PREMIUM COLOR PALETTE & VARIABLES --- */
+        :root {
+            --primary: #0f4c3a; /* Deep Emerald Green */
+            --primary-dark: #082f22;
+            --accent: #d4af37; /* Champagne Gold */
+            --accent-light: #f3e5ab;
+            --bg-body: #fdfbf7; /* Soft Cream */
+            --white: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-light: #666666;
+            --danger: #d32f2f;
+            --success: #388e3c;
+            --shadow-soft: 0 10px 30px rgba(15, 76, 58, 0.08);
+            --shadow-hover: 0 15px 40px rgba(15, 76, 58, 0.15);
+            --radius: 8px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, h6 { 
+            font-family: 'Playfair Display', serif; 
+            color: var(--primary); 
+            font-weight: 700;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+        button { cursor: pointer; font-family: inherit; transition: all 0.3s ease; }
+
+        /* --- 2. UTILITIES & ANIMATIONS --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .section-padding { padding: 80px 0; }
+        .text-center { text-align: center; }
+
+        /* Scroll Animation Class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn-primary { 
+            background: var(--primary); 
+            color: var(--accent); 
+            border: 1px solid var(--primary);
+        }
+        .btn-primary:hover { 
+            background: var(--primary-dark); 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(15, 76, 58, 0.3);
+        }
+
+        .btn-accent { 
+            background: var(--accent); 
+            color: var(--primary); 
+        }
+        .btn-accent:hover { 
+            background: #b5952f; 
+            transform: translateY(-2px);
+        }
+
+        .btn-danger { 
+            background: var(--danger); 
+            color: white; 
+            padding: 8px 15px; 
+            border-radius: 4px; 
+            font-size: 0.8rem;
+        }
+
+        /* --- 3. HEADER & NAV --- */
+        header { 
+            background: var(--white); 
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05); 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            padding: 15px 0;
+        }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo { 
+            font-size: 1.8rem; 
+            font-weight: 700; 
+            color: var(--primary); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            cursor: pointer;
+        }
+        .logo i { color: var(--accent); }
+
+        .nav-menu { display: flex; gap: 35px; }
+        .nav-menu a { 
+            font-weight: 500; 
+            font-size: 0.95rem; 
+            color: var(--text-dark); 
+            position: relative;
+        }
+        .nav-menu a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--accent); transition: 0.3s;
+        }
+        .nav-menu a:hover::after, .nav-menu a.active::after { width: 100%; }
+        .nav-menu a:hover { color: var(--primary); }
+
+        .nav-icons { display: flex; gap: 25px; align-items: center; font-size: 1.2rem; color: var(--primary); }
+        .cart-icon { position: relative; cursor: pointer; transition: 0.3s; }
+        .cart-icon:hover { color: var(--accent); transform: scale(1.1); }
+        
+        .cart-badge {
+            position: absolute; top: -8px; right: -10px;
+            background: var(--accent); color: var(--primary);
+            font-size: 0.7rem; width: 20px; height: 20px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* --- 4. HERO SECTION --- */
+        .hero {
+            height: 85vh;
+            background: linear-gradient(rgba(15, 76, 58, 0.6), rgba(15, 76, 58, 0.4)), url('https://picsum.photos/seed/luxuryfashion/1920/1080');
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: white;
+            position: relative;
+        }
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+        .hero h1 { font-size: 4rem; margin-bottom: 20px; color: var(--accent); text-shadow: 2px 2px 10px rgba(0,0,0,0.3); }
+        .hero p { font-size: 1.3rem; margin-bottom: 40px; font-weight: 300; }
+
+        /* --- 5. PRODUCTS & CARDS --- */
+        .section-title { 
+            text-align: center; 
+            margin-bottom: 60px; 
+            font-size: 2.8rem; 
+            position: relative; 
+        }
+        .section-title span { color: var(--accent); font-style: italic; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; }
+        
+        .product-card { 
+            background: var(--white); 
+            border-radius: var(--radius); 
+            overflow: hidden; 
+            box-shadow: var(--shadow-soft); 
+            transition: 0.4s;
+            position: relative;
+            border: 1px solid transparent;
+        }
+        .product-card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent-light);
+        }
+        
+        .p-img-container { height: 350px; overflow: hidden; position: relative; }
+        .p-img-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+        .product-card:hover .p-img-container img { transform: scale(1.1); }
+        
+        .p-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 76, 58, 0.7);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: 0.3s;
+        }
+        .product-card:hover .p-overlay { opacity: 1; }
+
+        .p-details { padding: 20px; text-align: center; }
+        .p-cat { font-size: 0.8rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; display: block; }
+        .p-title { margin: 10px 0; font-size: 1.2rem; color: var(--primary); cursor: pointer; }
+        .p-price { color: var(--accent); font-weight: 700; font-size: 1.1rem; display: block; margin-bottom: 15px; }
+
+        /* --- 6. CART & CHECKOUT --- */
+        .cart-wrapper { background: var(--white); padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow-soft); }
+        .cart-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        .cart-table th { text-align: left; padding: 15px; border-bottom: 2px solid var(--primary); color: var(--primary); }
+        .cart-table td { padding: 20px 15px; border-bottom: 1px solid #eee; }
+        
+        .form-box { background: var(--white); padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow-soft); }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; margin-bottom: 10px; font-weight: 600; color: var(--primary); }
+        .form-control {
+            width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 4px;
+            transition: 0.3s; font-family: inherit;
+        }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15, 76, 58, 0.1); }
+
+        /* --- 7. ADMIN PANEL --- */
+        #admin-view { display: none; background: #f0f2f5; min-height: 100vh; }
+        .admin-layout { display: flex; min-height: 100vh; }
+        .sidebar { width: 280px; background: var(--primary-dark); color: white; padding: 30px; flex-shrink: 0; }
+        .sidebar-brand { font-size: 1.5rem; font-family: 'Playfair Display', serif; margin-bottom: 50px; color: var(--accent); text-align: center; }
+        .sidebar-menu li { margin-bottom: 15px; }
+        .sidebar-menu a {
+            display: flex; align-items: center; gap: 15px; padding: 15px;
+            border-radius: 8px; color: #cbd5e1; cursor: pointer; transition: 0.3s;
+        }
+        .sidebar-menu a:hover, .sidebar-menu a.active { background: rgba(255,255,255,0.1); color: var(--white); }
+        
+        .admin-main { flex-grow: 1; padding: 40px; overflow-y: auto; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px; margin-bottom: 40px; }
+        .stat-card { background: var(--white); padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow-soft); border-left: 5px solid var(--accent); }
+        
+        .data-table { width: 100%; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-soft); border-collapse: collapse; overflow: hidden; }
+        .data-table th { background: #f8fafc; padding: 20px; text-align: left; font-weight: 600; color: var(--primary); }
+        .data-table td { padding: 20px; border-bottom: 1px solid #eee; }
+
+        /* --- 8. MODALS & LOADERS --- */
+        .modal { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.6); z-index: 2000; 
+            align-items: center; justify-content: center; 
+            backdrop-filter: blur(5px);
+        }
+        .modal-content { 
+            background: var(--white); width: 400px; padding: 40px; 
+            border-radius: var(--radius); text-align: center; 
+            animation: slideUp 0.4s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        /* Processing Overlay */
+        .loading-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.95); z-index: 3000;
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .spinner {
+            width: 50px; height: 50px; border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary); border-radius: 50%;
+            animation: spin 1s linear infinite; margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer { background: var(--primary-dark); color: white; padding: 60px 0 20px; margin-top: 80px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { color: var(--accent); margin-bottom: 25px; font-size: 1.2rem; }
+        .footer-col ul li { margin-bottom: 12px; color: #ccc; cursor: pointer; transition: 0.3s; }
+        .footer-col ul li:hover { color: var(--accent); padding-left: 5px; }
+
+        /* Utility Classes */
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.5s; }
+        .hidden { display: none !important; }
+
+        /* Keyframes */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes popIn { 0% { transform: scale(0); } 80% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: white; flex-direction: column; padding: 20px; box-shadow: var(--shadow-soft); }
+            .nav-menu.active { display: flex; }
+            .hero h1 { font-size: 2.5rem; }
+            .sidebar { width: 70px; padding: 10px; }
+            .sidebar-brand span, .sidebar-menu span { display: none; }
+            .sidebar-menu a { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PROCESSING OVERLAY (Email/Payment Simulation) -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <h3 id="loadingText" style="color: var(--primary); margin-top: 15px;">Processing Payment...</h3>
+    </div>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2 style="margin-bottom: 20px;">Admin Access</h2>
+            <div class="form-group">
+                <input type="text" id="adminUser" class="form-control" placeholder="Username (admin)">
+            </div>
+            <div class="form-group">
+                <input type="password" id="adminPass" class="form-control" placeholder="Password (saranya123)">
+            </div>
+            <button class="btn btn-primary" onclick="checkLogin()" style="width: 100%;">Login</button>
+            <button class="btn" onclick="closeLoginModal()" style="margin-top: 10px; color: #888;">Cancel</button>
+            <p id="loginError" style="color: var(--danger); margin-top: 10px; font-size: 0.9rem;"></p>
+        </div>
+    </div>
+
+    <!-- === CUSTOMER VIEW === -->
+    <div id="client-view">
+        <header>
+            <div class="container nav-flex">
+                <div class="logo" onclick="route('home')">
+                    <i class="fas fa-gem"></i> SARANYA <span>BOUTIQUE</span>
+                </div>
+                <nav>
+                    <ul class="nav-menu" id="mainNav">
+                        <li><a href="#" onclick="route('home')" class="active">Home</a></li>
+                        <li><a href="#" onclick="route('shop')">Collection</a></li>
+                        <li><a href="#" onclick="route('about')">About</a></li>
+                    </ul>
+                </nav>
+                <div class="nav-icons">
+                    <div class="cart-icon" onclick="route('cart')">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </div>
+                    <i class="fas fa-bars" style="display: none;" onclick="document.getElementById('mainNav').classList.toggle('active')"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- HOME PAGE -->
+        <main id="home" class="page active">
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Elegance in Every Stitch</h1>
+                    <p>Discover a perfect blend of traditional artistry and modern trends. Redefine your style with Saranya Boutique.</p>
+                    <button class="btn btn-accent" onclick="route('shop')">Explore Collection</button>
+                </div>
+            </section>
+            
+            <section class="section-padding container reveal">
+                <h2 class="section-title">New <span>Arrivals</span></h2>
+                <div class="grid" id="featured-grid"></div>
+            </section>
+        </main>
+
+        <!-- SHOP PAGE -->
+        <main id="shop" class="page">
+            <div class="container section-padding">
+                <div class="text-center reveal">
+                    <h2 class="section-title">Our <span>Collection</span></h2>
+                    <div style="margin-bottom: 40px;">
+                        <button class="btn btn-primary" onclick="filterShop('all')">All</button>
+                        <button class="btn" style="border:1px solid #ddd" onclick="filterShop('Traditional')">Traditional</button>
+                        <button class="btn" style="border:1px solid #ddd" onclick="filterShop('Western')">Western</button>
+                        <button class="btn" style="border:1px solid #ddd" onclick="filterShop('Party')">Party</button>
+                    </div>
+                </div>
+                <div class="grid reveal" id="shop-grid"></div>
+            </div>
+        </main>
+
+        <!-- CART PAGE -->
+        <main id="cart" class="page">
+            <div class="container section-padding">
+                <h2 class="section-title reveal">Your <span>Cart</span></h2>
+                <div class="cart-wrapper reveal" id="cart-content">
+                    <!-- Items rendered via JS -->
+                </div>
+            </div>
+        </main>
+
+        <!-- CHECKOUT PAGE -->
+        <main id="checkout" class="page">
+            <div class="container section-padding">
+                <h2 class="section-title reveal">Secure <span>Checkout</span></h2>
+                <div class="grid reveal" style="grid-template-columns: 2fr 1fr; gap: 50px;">
+                    <form class="form-box" onsubmit="processOrder(event)">
+                        <h3 style="margin-bottom: 20px;">Shipping Details</h3>
+                        <div class="form-group"><label>Full Name</label><input type="text" id="cusName" class="form-control" required></div>
+                        <div class="form-group"><label>Email Address</label><input type="email" id="cusEmail" class="form-control" required placeholder="We will send invoice here"></div>
+                        <div class="form-group"><label>Phone</label><input type="tel" id="cusPhone" class="form-control" required></div>
+                        <div class="form-group"><label>Shipping Address</label><textarea id="cusAddress" class="form-control" rows="3" required></textarea></div>
+                        
+                        <h3 style="margin: 30px 0 20px;">Payment Method</h3>
+                        <div class="form-group">
+                            <select class="form-control" id="paymentMethod">
+                                <option value="cod">Cash on Delivery</option>
+                                <option value="card">Credit/Debit Card</option>
+                                <option value="upi">UPI / Net Banking</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">
+                            Place Order <i class="fas fa-lock"></i>
+                        </button>
+                    </form>
+
+                    <div class="form-box" style="height: fit-content;">
+                        <h3 style="margin-bottom: 20px;">Order Summary</h3>
+                        <div id="checkout-summary" style="margin-bottom: 20px; color: var(--text-light);"></div>
+                        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+                        <div style="display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: 700; color: var(--primary);">
+                            <span>Total</span>
+                            <span id="checkout-total">₹0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ABOUT PAGE -->
+        <main id="about" class="page">
+            <div class="container section-padding text-center reveal">
+                <h2 class="section-title">About <span>Saranya</span></h2>
+                <div style="max-width: 800px; margin: 0 auto; line-height: 1.8; color: var(--text-light);">
+                    <img src="https://picsum.photos/seed/boutiqueinterior/1000/500" style="margin-bottom: 40px; border-radius: var(--radius); box-shadow: var(--shadow-soft);">
+                    <p>Welcome to Saranya Boutique, your one-stop destination for elegant and trendy fashion. We bring you a perfect blend of traditional and modern outfits designed to suit every occasion.</p>
+                    <br>
+                    <p>Our mission is to provide designs that combine elegance, comfort, and modern trends. We focus on delivering unique styles that help you stand out with confidence.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <h4>Saranya Boutique</h4>
+                        <p style="color: #ccc; line-height: 1.6;">Premium fashion for the modern woman. We believe in quality, elegance, and style.</p>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li onclick="route('home')">Home</li>
+                            <li onclick="route('shop')">Shop</li>
+                            <li onclick="route('about')">About Us</li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Customer Care</h4>
+                        <ul>
+                            <li>Track Order</li>
+                            <li>Return Policy</li>
+                            <li>FAQs</li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Admin</h4>
+                        <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid #555; color: white;" onclick="openLoginModal()">
+                            <i class="fas fa-user-shield"></i> Admin Login
+                        </button>
+                    </div>
+                </div>
+                <div class="text-center" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 0.9rem; color: #888;">
+                    &copy; 2023 Saranya Boutique. All Rights Reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- === ADMIN PANEL VIEW === -->
+    <div id="admin-view">
+        <div class="admin-layout">
+            <div class="sidebar">
+                <div class="sidebar-brand"><i class="fas fa-gem"></i> <span>Admin</span></div>
+                <ul class="sidebar-menu">
+                    <li><a onclick="showAdminPage('dashboard')" class="active" id="nav-dashboard"><i class="fas fa-chart-line"></i> <span>Dashboard</span></a></li>
+                    <li><a onclick="showAdminPage('products')" id="nav-products"><i class="fas fa-box-open"></i> <span>Products</span></a></li>
+                    <li><a onclick="showAdminPage('orders')" id="nav-orders"><i class="fas fa-shopping-cart"></i> <span>Orders</span></a></li>
+                    <li style="margin-top: auto;"><a onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+                </ul>
+            </div>
+            
+            <div class="admin-main">
+                <!-- Dashboard -->
+                <div id="admin-dashboard" class="admin-page">
+                    <h2 style="margin-bottom: 30px;">Dashboard Overview</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h1 id="stat-products" style="font-size: 2.5rem; color: var(--primary);">0</h1>
+                            <p style="color: var(--text-light);">Total Products</p>
+                        </div>
+                        <div class="stat-card">
+                            <h1 id="stat-orders" style="font-size: 2.5rem; color: var(--accent);">0</h1>
+                            <p style="color: var(--text-light);">Total Orders</p>
+                        </div>
+                        <div class="stat-card">
+                            <h1 id="stat-revenue" style="font-size: 2.5rem; color: var(--success);">₹0</h1>
+                            <p style="color: var(--text-light);">Total Revenue</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Management -->
+                <div id="admin-products" class="admin-page" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+                        <h2>Manage Products</h2>
+                        <button class="btn btn-primary" onclick="openProductModal()">+ Add Product</button>
+                    </div>
+                    <table class="data-table">
+                        <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Action</th></tr></thead>
+                        <tbody id="admin-product-table"></tbody>
+                    </table>
+                </div>
+
+                <!-- Orders Management -->
+                <div id="admin-orders" class="admin-page" style="display: none;">
+                    <h2 style="margin-bottom: 30px;">Customer Orders</h2>
+                    <table class="data-table">
+                        <thead><tr><th>Order ID</th><th>Customer</th><th>Email</th><th>Total</th><th>Status</th><th>Update</th></tr></thead>
+                        <tbody id="admin-order-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content" style="width: 500px; text-align: left;">
+            <h3 style="margin-bottom: 20px; text-align: center;">Add New Product</h3>
+            <div class="form-group"><label>Product Name</label><input type="text" id="newProdName" class="form-control"></div>
+            <div class="form-group"><label>Price (₹)</label><input type="number" id="newProdPrice" class="form-control"></div>
+            <div class="form-group"><label>Category</label>
+                <select id="newProdCat" class="form-control">
+                    <option>Traditional</option><option>Western</option><option>Party</option>
+                </select>
+            </div>
+            <div class="form-group"><label>Image URL</label><input type="text" id="newProdImg" class="form-control" placeholder="Leave empty for auto image"></div>
+            <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
+                <button class="btn" onclick="closeProductModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="addNewProduct()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" style="position: fixed; bottom: 30px; right: 30px; background: var(--primary); color: white; padding: 15px 25px; border-radius: 5px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transform: translateY(100px); transition: 0.3s; z-index: 4000;">Action Successful!</div>
+
+    <script>
+        // --- 1. DATA & STATE ---
+        const defaultProducts = [
+            { id: 1, name: "Royal Banarasi Saree", price: 5500, category: "Traditional", img: "https://picsum.photos/seed/saree1/400/500" },
+            { id: 2, name: "Midnight Velvet Gown", price: 4200, category: "Party", img: "https://picsum.photos/seed/gown1/400/500" },
+            { id: 3, name: "Embroidered Kurti Set", price: 1899, category: "Traditional", img: "https://picsum.photos/seed/kurti1/400/500" },
+            { id: 4, name: "Classic Denim Jacket", price: 2499, category: "Western", img: "https://picsum.photos/seed/jacket1/400/500" },
+            { id: 5, name: "Designer Bridal Lehenga", price: 15000, category: "Party", img: "https://picsum.photos/seed/lehenga1/400/500" },
+            { id: 6, name: "Floral Summer Dress", price: 1299, category: "Western", img: "https://picsum.photos/seed/dress1/400/500" },
+            { id: 7, name: "Silk Anarkali Suit", price: 3500, category: "Traditional", img: "https://picsum.photos/seed/anarkali/400/500" },
+            { id: 8, name: "Cocktail Dress", price: 2800, category: "Party", img: "https://picsum.photos/seed/cocktail/400/500" }
+        ];
+
+        let products = JSON.parse(localStorage.getItem('sb_products')) || defaultProducts;
+        let cart = JSON.parse(localStorage.getItem('sb_cart')) || [];
+        let orders = JSON.parse(localStorage.getItem('sb_orders')) || [];
+
+        // --- 2. CORE FUNCTIONS ---
+        function saveData() {
+            localStorage.setItem('sb_products', JSON.stringify(products));
+            localStorage.setItem('sb_cart', JSON.stringify(cart));
+            localStorage.setItem('sb_orders', JSON.stringify(orders));
+            updateUI();
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.style.transform = "translateY(0)";
+            setTimeout(() => toast.style.transform = "translateY(100px)", 3000);
+        }
+
+        // --- 3. ANIMATIONS (Scroll Reveal) ---
+        function initAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        // --- 4. ROUTING ---
+        function route(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+            initAnimations(); // Re-check animations on new page
+            if(pageId === 'checkout') renderCheckoutSummary();
+            
+            // Mobile menu close
+            document.getElementById('mainNav').classList.remove('active');
+        }
+
+        // --- 5. SHOP & CART LOGIC ---
+        function renderShop(filter = 'all') {
+            const grid = document.getElementById('shop-grid');
+            const featured = document.getElementById('featured-grid');
+            grid.innerHTML = '';
+            if(featured) featured.innerHTML = '';
+
+            const displayProducts = filter === 'all' ? products : products.filter(p => p.category === filter);
+
+            displayProducts.forEach(p => {
+                const card = `
+                    <div class="product-card">
+                        <div class="p-img-container">
+                            <img src="${p.img}" alt="${p.name}">
+                            <div class="p-overlay">
+                                <button class="btn btn-accent" onclick="addToCart(${p.id})">
+                                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-details">
+                            <span class="p-cat">${p.category}</span>
+                            <h4 class="p-title">${p.name}</h4>
+                            <span class="p-price">₹${p.price.toLocaleString()}</span>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+                if(filter === 'all' && featured && featured.children.length < 4) featured.innerHTML += card;
+            });
+        }
+
+        function filterShop(cat) {
+            renderShop(cat);
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            
+            if(existing) existing.qty++;
+            else cart.push({ ...product, qty: 1 });
+            
+            saveData();
+            showToast(`Added ${product.name} to Cart`);
+        }
+
+        function renderCart() {
+            document.getElementById('cartBadge').innerText = cart.reduce((acc, item) => acc + item.qty, 0);
+            const container = document.getElementById('cart-content');
+            
+            if(cart.length === 0) {
+                container.innerHTML = '<div class="text-center" style="padding: 50px;"><h3>Your cart is empty</h3><br><button class="btn btn-primary" onclick="route(\'shop\')">Start Shopping</button></div>';
+                return;
+            }
+
+            let html = '<table class="cart-table"><thead><tr><th>Product</th><th>Price</th><th>Qty</th><th>Total</th><th></th></tr></thead><tbody>';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+                html += `
+                    <tr>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <img src="${item.img}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
+                                <strong>${item.name}</strong>
+                            </div>
+                        </td>
+                        <td>₹${item.price.toLocaleString()}</td>
+                        <td>
+                            <button class="btn" style="padding:5px 10px; border:1px solid #ddd;" onclick="updateQty(${index}, -1)">-</button>
+                            <span style="margin:0 10px;">${item.qty}</span>
+                            <button class="btn" style="padding:5px 10px; border:1px solid #ddd;" onclick="updateQty(${index}, 1)">+</button>
+                        </td>
+                        <td>₹${itemTotal.toLocaleString()}</td>
+                        <td><i class="fas fa-trash" style="color:var(--danger); cursor:pointer;" onclick="removeFromCart(${index})"></i></td>
+                    </tr>
+                `;
+            });
+
+            html += `</tbody></table>
+                <div style="text-align: right; margin-top: 30px;">
+                    <h2 style="color:var(--primary);">Total: <span style="color:var(--accent);">₹${total.toLocaleString()}</span></h2>
+                    <button class="btn btn-primary" style="margin-top: 20px;" onclick="route('checkout')">Proceed to Checkout</button>
+                </div>`;
+            container.innerHTML = html;
+        }
+
+        function updateQty(index, change) {
+            cart[index].qty += change;
+            if(cart[index].qty < 1) cart[index].qty = 1;
+            saveData();
+        }
+
+        function removeFromCart(index) {
+            if(confirm('Remove this item?')) {
+                cart.splice(index, 1);
+                saveData();
+            }
+        }
+
+        function renderCheckoutSummary() {
+            const container = document.getElementById('checkout-summary');
+            let html = ''; let total = 0;
+            cart.forEach(item => {
+                total += item.price * item.qty;
+                html += `<div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px dashed #eee; padding-bottom:5px;"><span>${item.name} x ${item.qty}</span><span>₹${(item.price * item.qty).toLocaleString()}</span></div>`;
+            });
+            container.innerHTML = html;
+            document.getElementById('checkout-total').innerText = '₹' + total.toLocaleString();
+        }
+
+        // --- 6. ORDER PROCESSING & EMAIL SIMULATION ---
+        function processOrder(e) {
+            e.preventDefault();
+            if(cart.length === 0) return alert('Cart is empty!');
+
+            const overlay = document.getElementById('loadingOverlay');
+            const text = document.getElementById('loadingText');
+            const email = document.getElementById('cusEmail').value;
+            
+            // 1. Show Loading
+            overlay.style.display = 'flex';
+            text.innerText = "Processing Payment...";
+
+            // 2. Simulate Payment Delay (1.5s)
+            setTimeout(() => {
+                text.innerText = "Connecting to Email Gateway...";
+                
+                // 3. Simulate Email Connection (1.5s)
+                setTimeout(() => {
+                    const name = document.getElementById('cusName').value;
+                    const total = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+                    
+                    const newOrder = {
+                        id: 'ORD-' + Math.floor(1000 + Math.random() * 9000),
+                        customer: name,
+                        email: email,
+                        items: [...cart],
+                        total: total,
+                        status: 'Pending',
+                        date: new Date().toLocaleDateString()
+                    };
+
+                    orders.push(newOrder);
+                    cart = []; // Clear cart
+                    saveData();
+                    
+                    overlay.style.display = 'none';
+                    
+                    // Success Message simulating email sent
+                    alert(`🎉 Order Placed Successfully!\n\nOrder ID: ${newOrder.id}\n\nAn invoice has been sent to your email: ${email}`);
+                    route('home');
+
+                }, 1500);
+            }, 1500);
+        }
+
+        // --- 7. ADMIN SYSTEM ---
+        function openLoginModal() { document.getElementById('loginModal').style.display = 'flex'; }
+        function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; }
+
+        function checkLogin() {
+            const u = document.getElementById('adminUser').value;
+            const p = document.getElementById('adminPass').value;
+            
+            if(u === 'admin' && p === 'saranya123') {
+                closeLoginModal();
+                document.getElementById('client-view').style.display = 'none';
+                document.getElementById('admin-view').style.display = 'block';
+                renderAdminDashboard();
+                showToast('Welcome, Admin');
+            } else {
+                document.getElementById('loginError').innerText = 'Invalid Credentials';
+            }
+        }
+
+        function logoutAdmin() {
+            document.getElementById('admin-view').style.display = 'none';
+            document.getElementById('client-view').style.display = 'block';
+            route('home');
+        }
+
+        function showAdminPage(page) {
+            document.querySelectorAll('.admin-page').forEach(p => p.style.display = 'none');
+            document.getElementById('admin-' + page).style.display = 'block';
+            document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+            document.getElementById('nav-' + page).classList.add('active');
+        }
+
+        function renderAdminDashboard() {
+            // Stats
+            document.getElementById('stat-products').innerText = products.length;
+            document.getElementById('stat-orders').innerText = orders.length;
+            const revenue = orders.reduce((acc, o) => acc + o.total, 0);
+            document.getElementById('stat-revenue').innerText = '₹' + revenue.toLocaleString();
+
+            // Products Table
+            const pTable = document.getElementById('admin-product-table');
+            pTable.innerHTML = '';
+            products.forEach(p => {
+                pTable.innerHTML += `
+                    <tr>
+                        <td><img src="${p.img}" style="width:50px; height:50px; border-radius:4px; object-fit:cover;"></td>
+                        <td>${p.name}</td>
+                        <td>${p.category}</td>
+                        <td>₹${p.price.toLocaleString()}</td>
+                        <td><button class="btn btn-danger" onclick="deleteProduct(${p.id})">Delete</button></td>
+                    </tr>
+                `;
+            });
+
+            // Orders Table
+            const oTable = document.getElementById('admin-order-table');
+            oTable.innerHTML = '';
+            orders.forEach((o, index) => {
+                oTable.innerHTML += `
+                    <tr>
+                        <td><strong>${o.id}</strong></td>
+                        <td>${o.customer}</td>
+                        <td>${o.email}</td>
+                        <td>₹${o.total.toLocaleString()}</td>
+                        <td><span style="padding:4px 8px; background:${o.status==='Pending'?'#ffeeba':'#d4edda'}; border-radius:4px; font-size:0.8rem;">${o.status}</span></td>
+                        <td>
+                             <select onchange="updateOrderStatus(${index}, this.value)" style="padding:5px;">
+                                <option value="Pending" ${o.status==='Pending'?'selected':''}>Pending</option>
+                                <option value="Shipped" ${o.status==='Shipped'?'selected':''}>Shipped</option>
+                                <option value="Delivered" ${o.status==='Delivered'?'selected':''}>Delivered</option>
+                            </select>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function openProductModal() { document.getElementById('productModal').style.display = 'flex'; }
+        function closeProductModal() { document.getElementById('productModal').style.display = 'none'; }
+
+        function addNewProduct() {
+            const name = document.getElementById('newProdName').value;
+            const price = document.getElementById('newProdPrice').value;
+            const cat = document.getElementById('newProdCat').value;
+            let img = document.getElementById('newProdImg').value;
+            
+            if(!name || !price) return alert('Name and Price required');
+            if(!img) img = `https://picsum.photos/seed/${name.replace(/\s/g,'')}/400/500`;
+
+            const newId = products.length > 0 ? products[products.length - 1].id + 1 : 1;
+            products.push({ id: newId, name, price: parseInt(price), category: cat, img });
+            
+            saveData();
+            closeProductModal();
+            showToast('Product Added!');
+            // Reset
+            document.getElementById('newProdName').value = '';
+            document.getElementById('newProdPrice').value = '';
+        }
+
+        function deleteProduct(id) {
+            if(confirm('Delete this product?')) {
+                products = products.filter(p => p.id !== id);
+                saveData();
+                showToast('Product Deleted');
+            }
+        }
+
+        function updateOrderStatus(index, status) {
+            orders[index].status = status;
+            saveData();
+            showToast('Status Updated');
+        }
+
+        // --- 8. INIT ---
+        function updateUI() {
+            renderShop();
+            renderCart();
+            renderAdminDashboard();
+        }
+
+        window.onload = function() {
+            updateUI();
+            initAnimations();
+        };
+
+    </script>
+</body>
+</html>
